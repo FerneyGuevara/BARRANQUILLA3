@@ -1,0 +1,2816 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sondeo de Conocimientos Previos — Ecosistema Digital y Modalidades de Trabajo</title>
+  <style>
+    #printReport {
+      display: none;
+    }
+
+    :root {
+      --navy: #14213D;
+      --navy-2: #1C2D52;
+      --parchment: #F6F1E7;
+      --paper: #FFFFFF;
+      --ink: #1D2430;
+      --ink-soft: #5B6472;
+      --teal: #1F7A6C;
+      --teal-dark: #155A50;
+      --coral: #D65B4A;
+      --coral-dark: #B14536;
+      --gold: #C68A2E;
+      --gold-dark: #9C6D20;
+      --blue: #2A5C8A;
+      --blue-dark: #1E4463;
+      --border: #E2D9C4;
+      --border-cool: #D7DCE6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: inherit;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+      color: var(--ink-soft);
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    
+    /* ---------- Hero + nav ---------- */
+    .hero {
+      background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+      color: #F2F0E8;
+      padding: 44px 24px 0;
+    }
+
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .hero-text {
+      margin-bottom: 28px;
+    }
+
+    .hero .tag {
+      color: #9FB3D6;
+    }
+
+    .hero h1 {
+      color: #FFFFFF;
+      font-size: clamp(1.6rem, 3.8vw, 2.5rem);
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 8px 0 4px;
+      text-wrap: balance;
+    }
+
+    .hero-header-flex {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 8px 0 14px;
+    }
+
+    .hero-title-img {
+      height: 140px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+      flex-shrink: 0;
+    }
+
+    .hero-header-titles {
+      flex: 1 1 auto;
+    }
+
+    .hero-header-titles h1 {
+      margin: 0 0 6px;
+    }
+
+    .hero-header-titles .hero-sub {
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      .hero-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .hero-title-img {
+        height: 100px;
+      }
+    }
+
+    .hero .hero-sub {
+      color: #FFFFFF;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.25;
+      font-weight: 700;
+      margin: 0 0 14px;
+    }
+
+    .hero p.lead {
+      color: #C9D3E6;
+      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      margin-bottom: 0;
+      text-wrap: pretty;
+      max-width: 760px;
+    }
+
+    nav.tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-bottom: 0;
+    }
+
+    nav.tabs button,
+    nav.tabs a.tab-btn {
+      flex: 0 0 auto;
+      background: rgba(255, 255, 255, .06);
+      color: #D7DEEC;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-bottom: none;
+      padding: 12px 16px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      position: relative;
+      top: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    nav.tabs button.active,
+    nav.tabs a.tab-btn.active {
+      background: var(--parchment);
+      color: var(--navy);
+      border-color: var(--parchment);
+    }
+
+    nav.tabs button:hover:not(.active),
+    nav.tabs a.tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, .13);
+      color: #fff;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    
+    /* ---------- Introducción ---------- */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      margin-bottom: 10px;
+    }
+
+    .card-basic {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quick-links button {
+      text-align: left;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 4px solid var(--teal);
+      border-radius: 6px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .quick-links button:hover {
+      background: #FBFAF6;
+    }
+
+    @media (max-width:760px) {
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    
+    /* ---------- Características / Clasificación cards ---------- */
+    .char-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      border-left-width: 6px;
+      border-left-style: solid;
+    }
+
+    .char-card.c-validez {
+      border-left-color: var(--teal);
+    }
+
+    .char-card.c-vigencia {
+      border-left-color: var(--gold);
+    }
+
+    .char-card.c-importancia {
+      border-left-color: var(--coral);
+    }
+
+    .char-card.c-significado {
+      border-left-color: var(--blue);
+    }
+
+    .eje-img-box {
+      margin-bottom: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 220px;
+      box-shadow: 0 2px 8px rgba(20, 33, 61, .08);
+      background: #f8fafc;
+    }
+
+    .eje-card-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px;
+      transition: transform .2s ease;
+    }
+
+    .eje-img-box:hover .eje-card-img {
+      transform: scale(1.03);
+    }
+
+    .char-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .char-head h3 {
+      font-size: 1.2rem;
+    }
+
+    .char-example {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 0.87rem;
+      margin-top: 8px;
+    }
+
+    .char-example strong {
+      color: var(--navy);
+    }
+
+    details.deepen {
+      margin-top: 22px;
+    }
+
+    details.deepen summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 10px 0;
+    }
+
+    .subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .subgrid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .subgrid.cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width:900px) {
+
+      .subgrid.cols-3,
+      .subgrid.cols-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width:600px) {
+
+      .subgrid,
+      .subgrid.cols-3,
+      .subgrid.cols-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .class-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      border-left-width: 6px;
+      border-left-style: solid;
+    }
+
+    .class-card.publica {
+      border-left-color: var(--teal);
+    }
+
+    .class-card.privada {
+      border-left-color: var(--gold);
+    }
+
+    .class-card.confidencial {
+      border-left-color: var(--coral);
+    }
+
+    .class-card.personal {
+      border-left-color: var(--blue);
+    }
+
+    .class-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .class-badge.publica {
+      background: rgba(31, 122, 108, .12);
+      color: var(--teal-dark);
+    }
+
+    .class-badge.privada {
+      background: rgba(198, 138, 46, .14);
+      color: var(--gold-dark);
+    }
+
+    .class-badge.confidencial {
+      background: rgba(214, 91, 74, .14);
+      color: var(--coral-dark);
+    }
+
+    .class-badge.personal {
+      background: rgba(42, 92, 138, .14);
+      color: var(--blue-dark);
+    }
+
+    table.quality-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.86rem;
+    }
+
+    table.quality-table th,
+    table.quality-table td {
+      border: 1px solid var(--border-cool);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.quality-table th {
+      background: var(--parchment);
+      color: var(--navy);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0;
+    }
+
+    .checklist li {
+      padding: 6px 0 6px 26px;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    
+    /* ---------- Evaluador (quiz) ---------- */
+    .subnav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .subnav button {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .subnav button.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .eval-panel {
+      display: none;
+    }
+
+    .eval-panel.active {
+      display: block;
+    }
+
+    .quiz-item {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+
+    .quiz-item .q-num {
+      font-family: ui-monospace, monospace;
+      font-size: .72rem;
+      color: var(--ink-soft);
+      letter-spacing: .04em;
+    }
+
+    .quiz-item .q-prompt {
+      font-size: .98rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 4px 0 12px;
+    }
+
+    .quiz-opts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-opt {
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: .9rem;
+      cursor: pointer;
+      background: #fff;
+      flex: 1 1 180px;
+      text-align: center;
+      transition: all .15s ease;
+    }
+
+    .quiz-opt:hover {
+      border-color: var(--navy);
+    }
+
+    .quiz-opt.selected {
+      border-color: var(--navy);
+      background: #EEF1F7;
+      font-weight: 700;
+    }
+
+    .quiz-opt.tf {
+      flex: 1 1 120px;
+    }
+
+    .quiz-item select.quiz-select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-cool);
+      font-size: .92rem;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .quiz-item input.quiz-fill {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-cool);
+      font-size: .92rem;
+    }
+
+    .quiz-feedback {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: .87rem;
+    }
+
+    .quiz-feedback.show {
+      display: block;
+    }
+
+    .quiz-feedback.ok {
+      background: #E9F3EE;
+      border: 1px solid var(--teal);
+      color: var(--teal-dark);
+    }
+
+    .quiz-feedback.bad {
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+      color: var(--coral-dark);
+    }
+
+    .match-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 4px;
+    }
+
+    @media (max-width:700px) {
+      .match-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .match-terms {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-term {
+      border: 2px dashed var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--parchment);
+      cursor: grab;
+      user-select: none;
+    }
+
+    .match-term.placed {
+      opacity: .35;
+      cursor: default;
+    }
+
+    .match-term.picked {
+      border-color: var(--navy);
+      background: #EEF1F7;
+    }
+
+    .match-targets {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-target {
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .86rem;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+    }
+
+    .match-target.dragover {
+      border-color: var(--teal);
+      background: #E9F3EE;
+    }
+
+    .match-target .slot {
+      flex: 0 0 auto;
+      font-size: .74rem;
+      font-weight: 800;
+      color: #fff;
+      background: var(--ink-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .match-target.correct .slot {
+      background: var(--teal);
+    }
+
+    .match-target.incorrect .slot {
+      background: var(--coral);
+    }
+
+    .match-hint {
+      font-size: .82rem;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+    }
+
+    .eval-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 22px 0;
+      flex-wrap: wrap;
+    }
+
+    button.primary {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: .95rem;
+    }
+
+    button.primary:hover {
+      background: var(--teal-dark);
+    }
+
+    button.ghost {
+      background: none;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: .9rem;
+      color: var(--ink);
+    }
+
+    .verdict {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .verdict.show {
+      display: block;
+    }
+
+    .verdict.low {
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+    }
+
+    .verdict.mid {
+      background: #FBF1E0;
+      border: 1px solid var(--gold);
+    }
+
+    .verdict.high {
+      background: #E9F3EE;
+      border: 1px solid var(--teal);
+    }
+
+    .verdict h4 {
+      margin-bottom: 6px;
+    }
+
+    
+    /* ---------- Dashboard ---------- */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .stat-card .stat-label {
+      font-size: .8rem;
+      color: var(--ink-soft);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width:800px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .chart-card h4 {
+      font-size: .95rem;
+      margin-bottom: 10px;
+    }
+
+    .chart-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .empty-note {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-size: .88rem;
+    }
+
+    .pie-wrap {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pie-wrap svg {
+      width: 150px;
+      height: 150px;
+      flex: 0 0 auto;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: .84rem;
+    }
+
+    .legend .sw {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    .analysis-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 5px solid var(--navy);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+
+    .analysis-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .analysis-card p {
+      font-size: .92rem;
+    }
+
+    .reward-box {
+      margin: 26px 0 22px;
+      padding: 26px 28px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #14213D 0%, #1C2D52 70%, #223A63 100%);
+      border: 2px solid var(--gold);
+      color: #F2F0E8;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .22);
+    }
+
+    .reward-box.complete {
+      border-color: #E9B949;
+      box-shadow: 0 0 0 4px rgba(233, 185, 73, .25), 0 8px 24px rgba(20, 33, 61, .28);
+    }
+
+    .reward-box .reward-tag {
+      font-family: ui-monospace, monospace;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: #E9B949;
+    }
+
+    .reward-box h4 {
+      color: #fff;
+      font-size: 1.25rem;
+      margin: 6px 0 10px;
+    }
+
+    .reward-box p {
+      color: #DCE3F1;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .reward-box p strong {
+      color: #E9B949;
+      font-size: 1.15em;
+    }
+
+    .reward-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .reward-amount .big {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #E9B949;
+      line-height: 1;
+    }
+
+    .reward-amount .of {
+      color: #9FB3D6;
+      font-size: .9rem;
+    }
+
+    .reward-track {
+      height: 12px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .reward-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #C68A2E, #E9B949);
+      border-radius: 8px;
+      transition: width .6s ease;
+    }
+
+    .reward-break {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      font-size: .86rem;
+    }
+
+    .reward-break div {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .reward-break b {
+      color: #fff;
+    }
+
+    .reward-status {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: #E9B949;
+    }
+
+    .btn-print-dashboard {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 11px 22px;
+      border: 1px solid var(--teal-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(31, 122, 108, .28);
+      transition: all .2s ease;
+    }
+
+    .btn-print-dashboard:hover {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0E473F 100%);
+      transform: translateY(-1px);
+    }
+
+    
+    /* ---------- Registro del aprendiz (en pantalla) ---------- */
+    .registro-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      border-left: 5px solid var(--navy);
+    }
+
+    .registro-card h4 {
+      font-size: .98rem;
+      margin-bottom: 4px;
+    }
+
+    .registro-card p.hint {
+      font-size: .84rem;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+    }
+
+    .registro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .registro-grid label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .registro-grid input {
+      font-weight: 400;
+      padding: 9px 11px;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      font-size: .9rem;
+      color: var(--ink);
+      font-family: inherit;
+    }
+
+    
+    /* ---------- Reporte institucional imprimible ---------- */
+    #printReport {
+      padding: 26px;
+    }
+
+    .report-header {
+      border-bottom: 2px solid #14213D;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .report-header-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+
+    .report-org {
+      font-size: 8pt;
+      font-weight: 800;
+      letter-spacing: .5px;
+      color: #14213D;
+      text-transform: uppercase;
+    }
+
+    .report-center {
+      font-size: 13pt;
+      font-weight: 900;
+      color: #14213D;
+      margin: 2px 0;
+      line-height: 1.15;
+    }
+
+    .report-competencia {
+      font-size: 8pt;
+      color: #333;
+      line-height: 1.25;
+    }
+
+    .report-project-card {
+      background: #F6F1E7 !important;
+      border: 1.5px solid #C68A2E !important;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-project-title {
+      font-size: 10.5pt;
+      font-weight: 900;
+      color: #14213D;
+      margin-bottom: 2px;
+    }
+
+    .report-project-sub {
+      font-size: 8pt;
+      color: #444;
+      margin-bottom: 4px;
+    }
+
+    .report-ra {
+      font-size: 7.5pt;
+      color: #222;
+      border-top: 1px dashed #C68A2E;
+      padding-top: 4px;
+      margin-top: 3px;
+    }
+
+    .report-ra ul {
+      margin: 2px 0 0 16px;
+      padding: 0;
+    }
+
+    .report-student-box {
+      border: 1px solid #D7DCE6;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      background: #FAFAF7 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-box-title {
+      font-size: 9pt;
+      font-weight: 800;
+      color: #14213D;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      border-bottom: 1px solid #D7DCE6;
+      padding-bottom: 3px;
+      margin-bottom: 6px;
+    }
+
+    .report-reg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 18px;
+    }
+
+    .report-field-wide {
+      grid-column: 1 / -1;
+    }
+
+    .report-field {
+      font-size: 8.5pt;
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 6px;
+      margin-top: 5px;
+    }
+
+    .report-field span.label {
+      font-weight: 700;
+      color: #14213D;
+      white-space: nowrap;
+    }
+
+    .report-field span.reg-val {
+      flex: 1;
+      min-height: 13px;
+      border-bottom: 1px solid #777;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .report-sec-title {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #14213D;
+      border-bottom: 1.5px solid #1F7A6C;
+      padding-bottom: 3px;
+      margin: 12px 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .report-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .report-stat-card {
+      border: 1px solid #D7DCE6;
+      border-radius: 6px;
+      padding: 6px 4px;
+      text-align: center;
+      background: #F6F8FA !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-stat-value {
+      font-size: 12pt;
+      font-weight: 900;
+      color: #1F7A6C;
+    }
+
+    .report-stat-label {
+      font-size: 7pt;
+      font-weight: 700;
+      color: #555;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .report-reward-box {
+      background: #14213D !important;
+      color: #fff !important;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-reward-box h4 {
+      color: #E9B949 !important;
+      margin: 0 0 3px 0;
+      font-size: 10pt;
+    }
+
+    .report-reward-box p {
+      font-size: 8pt;
+      margin: 0 0 5px 0;
+      color: #E5E7EB;
+    }
+
+    .report-reward-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      font-size: 7.5pt;
+    }
+
+    .report-reward-pill {
+      background: rgba(255, 255, 255, .12) !important;
+      border: 1px solid rgba(255, 255, 255, .2);
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .report-charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .report-chart {
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 6px 8px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .report-chart h4 {
+      font-size: 8pt;
+      font-weight: 800;
+      color: #14213D;
+      margin: 0 0 4px 0;
+    }
+
+    .report-chart svg {
+      width: 100%;
+      height: auto;
+      max-height: 150px;
+      display: block;
+    }
+
+    .report-chart .pie-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .report-chart .pie-wrap svg {
+      width: 90px;
+      height: 90px;
+    }
+
+    .report-chart .legend {
+      font-size: 7pt;
+    }
+
+    .report-analysis-item {
+      font-size: 8pt;
+      margin-bottom: 5px;
+      line-height: 1.35;
+    }
+
+    .report-analysis-item strong {
+      color: #1F7A6C;
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.5pt;
+      margin-top: 3px;
+    }
+
+    .report-table th {
+      background: #14213D !important;
+      color: #fff !important;
+      font-weight: 700;
+      padding: 4px 6px;
+      text-align: left;
+      border: 1px solid #14213D;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-table td {
+      padding: 3px 6px;
+      border: 1px solid #D7DCE6;
+    }
+
+    .report-table tr:nth-child(even) {
+      background: #F9FAFB !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-badge {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 7pt;
+      text-transform: uppercase;
+    }
+
+    .badge-high {
+      background: #D1FAE5 !important;
+      color: #065F46 !important;
+    }
+
+    .badge-mid {
+      background: #FEF3C7 !important;
+      color: #92400E !important;
+    }
+
+    .badge-low {
+      background: #FEE2E2 !important;
+      color: #991B1B !important;
+    }
+
+    .report-signatures {
+      margin-top: 14px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .report-obs {
+      font-size: 8pt;
+      margin-bottom: 12px;
+    }
+
+    .obs-lines {
+      border-bottom: 1px dashed #999;
+      height: 16px;
+      margin-top: 4px;
+    }
+
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .sig-box {
+      text-align: center;
+    }
+
+    .sig-line {
+      border-bottom: 1px solid #333;
+      margin-bottom: 4px;
+    }
+
+    .sig-label {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #14213D;
+    }
+
+    
+    /* ---------- Sondeo (preguntas de selección única) ---------- */
+    .opt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sondeo-opt {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: .9rem;
+      cursor: pointer;
+      background: #fff;
+      transition: all .15s ease;
+    }
+
+    .sondeo-opt:hover {
+      border-color: var(--navy);
+    }
+
+    .sondeo-opt.selected {
+      border-color: var(--navy);
+      background: #EEF1F7;
+      font-weight: 700;
+    }
+
+    .sondeo-opt.unknown {
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+
+    .sondeo-opt input {
+      margin-top: 4px;
+      accent-color: var(--navy);
+      cursor: pointer;
+    }
+
+    .sondeo-opt .letter {
+      font-weight: 800;
+      color: var(--navy);
+      min-width: 18px;
+    }
+
+    .quiz-item.unanswered {
+      border-color: var(--coral);
+      box-shadow: 0 0 0 2px rgba(214, 91, 74, .15);
+    }
+
+    @media (max-width: 640px) {
+      .hero-title-img {
+        height: 80px !important;
+      }
+    }
+
+    /* ---------- Print ---------- */
+    #printReport {
+      display: none;
+    }
+
+    @media print {
+
+      body.printing-report>.hero,
+      body.printing-report>main {
+        display: none !important;
+      }
+
+      body.printing-report {
+        background: #fff !important;
+        color: #111827 !important;
+      }
+
+      body.printing-report #printReport {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #111827 !important;
+        font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.35 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="tag">SENA · CENTRO DE GESTIÓN ADMINISTRATIVA</span>
+        <div class="hero-header-flex">
+          <img src="imagen.png" alt="Logo SENA" class="hero-title-img" style="height:110px;"
+            onerror="this.style.display='none'">
+          <div class="hero-header-titles">
+            <h1>SONDEO DE CONOCIMIENTOS PREVIOS</h1>
+            <h2 class="hero-sub">Ecosistema Microsoft 365, metodología Kanban y modalidades de trabajo a distancia</h2>
+          </div>
+        </div>
+        <p class="lead">Diagnóstico interactivo de 10 preguntas, una por cada módulo técnico de formación. Cada intento
+          arma un conjunto aleatorio y balanceado, y tus resultados quedan registrados en el Dashboard.</p>
+      </div>
+      <nav class="tabs" id="tabs">
+        <a href="index.html" class="tab-btn">Inicio</a>
+        <button data-section="introduccion" class="active">Introducción</button>
+        <button data-section="modulos">Módulos evaluados</button>
+        <button data-section="sondeo">Sondeo</button>
+        <button data-section="dashboard">Dashboard</button>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- INTRODUCCIÓN -->
+    <section data-section="introduccion" class="active">
+      <div class="intro-grid">
+        <div class="card-basic">
+          <h2 style="font-size:1.4rem;margin-bottom:10px;">¿Para qué sirve este sondeo?</h2>
+          <p><strong>Estimado participante / aprendiz:</strong> este instrumento evalúa tu apropiación previa del
+            Ecosistema Microsoft 365, la metodología Kanban y los marcos de trabajo a distancia (teletrabajo, trabajo
+            remoto y trabajo híbrido).</p>
+          <p>Cada ejecución compila de forma aleatoria un grupo balanceado de <strong>10 preguntas</strong>, una por
+            cada módulo técnico de formación. No es una calificación definitiva: es un <strong>diagnóstico</strong>
+            para identificar tu punto de partida y los temas que conviene reforzar.</p>
+          <p>Si no conoces la respuesta, puedes marcar la opción <em>“No tengo idea, gracias”</em>. Al finalizar verás
+            la retroalimentación de cada pregunta y tu historial quedará guardado en el <strong>Dashboard</strong>
+            (solo en este navegador).</p>
+        </div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Ir directo a:</h3>
+          <div class="quick-links">
+            <button data-goto="modulos">🧩 Módulos evaluados — los 10 temas que cubre el sondeo</button>
+            <button data-goto="sondeo">📝 Sondeo — responde 10 preguntas aleatorias</button>
+            <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULOS EVALUADOS -->
+    <section data-section="modulos">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Módulos evaluados</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">El sondeo toma una pregunta al azar de cada uno de estos diez
+        módulos técnicos, de modo que todos los temas queden cubiertos en cada intento.</p>
+      <div class="subgrid" id="modulosGrid"></div>
+    </section>
+
+    <!-- SONDEO -->
+    <section data-section="sondeo">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Sondeo temático automatizado</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Responde las 10 preguntas y presiona
+        <strong>Enviar y procesar diagnóstico</strong>. Cada intento queda registrado en el <strong>Dashboard</strong>.
+      </p>
+
+      <div id="sondeoForm">
+        <div class="registro-card">
+          <h4>Nombre completo del participante</h4>
+          <p class="hint">Se guarda solo en este navegador y aparecerá en el reporte impreso.</p>
+          <div class="registro-grid">
+            <label>Nombres y apellidos<input type="text" id="nombreUsuario"
+                placeholder="Escriba sus nombres y apellidos completos"></label>
+          </div>
+        </div>
+
+        <div id="questionsWrap"></div>
+
+        <div class="eval-actions">
+          <button type="button" class="primary" id="submitSondeo">Enviar y procesar diagnóstico</button>
+          <span id="sondeoMsg" style="font-size:.88rem;color:var(--coral-dark);font-weight:700;"></span>
+        </div>
+      </div>
+
+      <div id="sondeoResult" style="display:none;">
+        <div class="verdict" id="sondeoVerdict">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:.88rem;color:var(--ink-soft);margin-bottom:0;"></p>
+        </div>
+        <div class="eval-actions">
+          <button type="button" class="primary" id="newSondeoBtn">🔄 Realizar un nuevo sondeo</button>
+          <button type="button" class="ghost" id="goDashBtn">📊 Ver en el Dashboard</button>
+          <button type="button" class="ghost" id="printResultBtn">🖨️ Imprimir resultados</button>
+        </div>
+        <div id="reviewWrap"></div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section data-section="dashboard">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Dashboard de resultados</h2>
+      <p style="color:var(--ink-soft);margin-bottom:20px;">Resumen de tus sondeos. Los datos se guardan solo en este
+        navegador; no salen de tu computador.</p>
+
+      <div class="registro-card">
+        <h4>📝 Registro del aprendiz</h4>
+        <p class="hint">Completa estos datos para que aparezcan en el reporte impreso. Se guardan solo en este
+          navegador.</p>
+        <div class="registro-grid">
+          <label>Nombre completo<input type="text" id="regNombre" placeholder="Nombre y apellidos"></label>
+          <label>Número de documento<input type="text" id="regDocumento" placeholder="C.C. / T.I."></label>
+          <label>Regional<input type="text" id="regRegional" placeholder="Nombre de la regional"></label>
+          <label>Centro de Formación<input type="text" id="regCentro"
+              placeholder="Nombre del centro de formación"></label>
+        </div>
+      </div>
+
+      <div class="stat-row" id="dashStats"></div>
+
+      <div class="dash-grid">
+        <div class="chart-card">
+          <h4>Puntaje por sondeo (sobre 10)</h4>
+          <div id="chartScoreBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Efectividad por módulo (%)</h4>
+          <div id="chartModuleBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Correctas, incorrectas y “No tengo idea”</h4>
+          <div id="chartAnswerPie"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Errores por módulo</h4>
+          <div id="chartErrPie"></div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h4>📊 Análisis — Último sondeo</h4>
+        <p id="analysisLast"></p>
+      </div>
+      <div class="analysis-card">
+        <h4>🧩 Análisis — Módulos</h4>
+        <p id="analysisModules"></p>
+      </div>
+
+      <div class="dash-actions"
+        style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:24px;">
+        <button class="ghost" id="resetDashBtn" style="color:var(--coral);border-color:rgba(214,91,74,.35);">🗑️ Borrar
+          historial del dashboard</button>
+        <button class="btn-print-dashboard" id="printReportBtn" type="button">🖨️ Imprimir registro del aprendiz y
+          dashboard</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Reporte institucional imprimible (Registro del aprendiz + Dashboard) -->
+  <div id="printReport">
+    <div class="report-header">
+      <div class="report-header-top">
+        <div>
+          <div class="report-org">Servicio Nacional de Aprendizaje SENA • Regional Distrito Capital</div>
+          <div class="report-center">Centro de Gestión Administrativa</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-project-card">
+      <div class="report-project-title">SONDEO DE CONOCIMIENTOS PREVIOS — REPORTE DE DIAGNÓSTICO</div>
+      <div class="report-project-sub"><strong>TEMAS:</strong> ECOSISTEMA MICROSOFT 365 • METODOLOGÍA KANBAN •
+        MODALIDADES DE TRABAJO A DISTANCIA (TELETRABAJO, TRABAJO REMOTO E HÍBRIDO)</div>
+    </div>
+
+    <div class="report-student-box">
+      <div class="report-box-title">Registro del aprendiz</div>
+      <div class="report-reg-grid">
+        <div class="report-field"><span class="label">Nombre completo:</span><span class="reg-val"
+            id="repNombre"></span></div>
+        <div class="report-field"><span class="label">Número de documento:</span><span class="reg-val"
+            id="repDocumento"></span></div>
+        <div class="report-field"><span class="label">Regional:</span><span class="reg-val" id="repRegional"></span></div>
+        <div class="report-field"><span class="label">Centro de Formación:</span><span class="reg-val"
+            id="repCentro"></span></div>
+        <div class="report-field report-field-wide"><span class="label">Fecha y hora de emisión:</span><span
+            class="reg-val" id="repFecha"></span></div>
+      </div>
+    </div>
+
+    <div class="report-sec-title">Resultados consolidados del dashboard</div>
+    <div class="report-stats-grid" id="repStats"></div>
+
+    <div class="report-sec-title">Gráficos del dashboard</div>
+    <div class="report-charts-grid">
+      <div class="report-chart">
+        <h4>Puntaje por sondeo (sobre 10)</h4>
+        <div id="repChartScoreBar"></div>
+      </div>
+      <div class="report-chart">
+        <h4>Efectividad por módulo (%)</h4>
+        <div id="repChartModuleBar"></div>
+      </div>
+      <div class="report-chart">
+        <h4>Correctas, incorrectas y “No tengo idea”</h4>
+        <div id="repChartAnswerPie"></div>
+      </div>
+      <div class="report-chart">
+        <h4>Errores por módulo</h4>
+        <div id="repChartErrPie"></div>
+      </div>
+    </div>
+
+    <div class="report-sec-title">Diagnóstico y análisis cualitativo</div>
+    <div class="report-analysis-item"><strong>Último sondeo:</strong><span id="repAnalysisLast"></span></div>
+    <div class="report-analysis-item"><strong>Módulos:</strong><span id="repAnalysisModules"></span></div>
+
+    <div class="report-sec-title">Desempeño por módulo</div>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Módulo</th>
+          <th>Aciertos</th>
+          <th>Errores</th>
+          <th>No tengo idea</th>
+          <th>Total</th>
+          <th>Efectividad</th>
+        </tr>
+      </thead>
+      <tbody id="repModuleTableBody"></tbody>
+    </table>
+
+    <div class="report-sec-title">Historial de sondeos realizados</div>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha/Hora</th>
+          <th>Participante</th>
+          <th>Puntaje</th>
+          <th>%</th>
+          <th>Resultado</th>
+          <th>Módulos a reforzar</th>
+        </tr>
+      </thead>
+      <tbody id="repHistoryTableBody"></tbody>
+    </table>
+
+    <div class="report-sec-title">Detalle del último sondeo</div>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Módulo</th>
+          <th>Pregunta</th>
+          <th>Su respuesta</th>
+          <th>Correcta</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="repDetailTableBody"></tbody>
+    </table>
+
+    <div class="report-signatures">
+      <div class="report-obs">
+        <strong>Observaciones y recomendaciones del instructor / evaluador:</strong>
+        <div class="obs-lines"></div>
+        <div class="obs-lines"></div>
+      </div>
+      <div class="sig-grid">
+        <div class="sig-box">
+          <div class="sig-line">&nbsp;</div>
+          <div class="sig-label">Firma del aprendiz</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line">&nbsp;</div>
+          <div class="sig-label">Firma del instructor / evaluador</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const LETRAS = ['A', 'B', 'C', 'D', 'E'];
+
+    // ================= Módulos =================
+    const MODULOS = [
+      { id: 1, corto: 'Frontend y Backend M365', nombre: 'Ecosistema M365: Frontend y Backend', desc: 'Diferencia entre la capa visible con la que interactúa el usuario (Teams, Planner, Outlook) y la capa que procesa y almacena la información (SharePoint).' },
+      { id: 2, corto: 'Teams como LMS', nombre: 'Microsoft Teams como aula virtual (LMS)', desc: 'Equipos, canales temáticos, roles de propietario y miembro, y uso de la pestaña Tareas para organizar un curso.' },
+      { id: 3, corto: 'SharePoint y OneDrive', nombre: 'Repositorio y flujos de información', desc: 'OneDrive para borradores personales, SharePoint como repositorio institucional, flujo de publicación y control de versiones.' },
+      { id: 4, corto: 'Calendario y tiempo', nombre: 'Planificación y gestión del tiempo', desc: 'Calendario de Teams, Outlook, Microsoft To Do y fechas límite de Planner para la autogestión.' },
+      { id: 5, corto: 'Insights (analítica)', nombre: 'Analítica educativa: Insights', desc: 'Análisis de participación y entregas para tomar decisiones pedagógicas basadas en evidencia.' },
+      { id: 6, corto: 'Reflect (socioemocional)', nombre: 'Monitoreo socioemocional: Reflect', desc: 'Check-ins emocionales y bienestar; complemento humano de la analítica de comportamiento.' },
+      { id: 7, corto: 'Criterios de modalidad', nombre: 'Criterios de selección de modalidad', desc: 'Interacción física, dependencia del lugar, nivel de supervisión y medibilidad por resultados: la decisión depende de la labor, no de la persona.' },
+      { id: 8, corto: 'Teletrabajo', nombre: 'Teletrabajo y procesos continuos', desc: 'Modalidad formal con vinculación laboral directa, funciones permanentes, formalización escrita y derecho a la desconexión.' },
+      { id: 9, corto: 'Trabajo remoto', nombre: 'Trabajo remoto y gestión por entregables', desc: 'Ejecución orientada a actividades, proyectos o productos específicos, con alta autonomía operativa.' },
+      { id: 10, corto: 'Híbrido y Kanban', nombre: 'Trabajo híbrido, Kanban y filosofía ágil', desc: 'Combinación de modalidades; buckets, límite de trabajo en progreso (WIP) y checklist en Planner.' }
+    ];
+    const MOD = Object.fromEntries(MODULOS.map(m => [m.id, m]));
+
+    (function renderModulos() {
+      const colors = ['c-validez', 'c-vigencia', 'c-importancia', 'c-significado'];
+      const grid = $('modulosGrid');
+      MODULOS.forEach((m, i) => {
+        const div = document.createElement('div');
+        div.className = 'char-card ' + colors[i % 4];
+        div.style.marginBottom = '0';
+        div.innerHTML = '<div class="char-head"><span class="tag">M-' + String(m.id).padStart(2, '0') + '</span><h3 style="font-size:1.05rem;">' + m.nombre + '</h3></div><p style="margin-bottom:0;font-size:.9rem;">' + m.desc + '</p>';
+        grid.appendChild(div);
+      });
+    })();
+
+    // ================= Banco de preguntas =================
+    const bancoPreguntasCompleto = {
+                1: [ // 1. Ecosistema M365 (Frontend vs Backend)
+                    {
+                        enunciado: "¿Cuál de las siguientes opciones define correctamente el concepto de 'Frontend' dentro del ecosistema de Microsoft 365?",
+                        opciones: { A: "La estructura lógica invisible donde se compilan y procesan flujos.", B: "La parte visible del sistema digital con la que interactúa directamente el usuario.", C: "El repositorio centralizado de administración de servidores locales.", D: "La capa de encriptación de datos basada en Azure." },
+                        correcta: "B", justificacion: "El frontend corresponde a la capa operativa y visible donde el usuario ejecuta sus tareas diarias directamente."
+                    },
+                    {
+                        enunciado: "Si un usuario edita una tarea en Microsoft Planner y carga un archivo adjunto, ¿dónde se almacena en el 'Backend'?",
+                        opciones: { A: "Dentro de la base de datos local de Planner.", B: "En el buzón de almacenamiento de Outlook.", C: "En el sitio de SharePoint correspondiente al grupo de trabajo.", D: "En el disco duro físico del servidor proxy empresarial." },
+                        correcta: "C", justificacion: "El backend de Microsoft 365 utiliza a SharePoint como el núcleo de almacenamiento organizacional tras escena."
+                    },
+                    {
+                        enunciado: "El procesamiento oculto de metadatos y la sincronización automática de archivos compartidos pertenecen al...",
+                        opciones: { A: "Frontend de usuario", B: "Backend del ecosistema", C: "Canal General de Teams", D: "Calendario institucional" },
+                        correcta: "B", justificacion: "El backend gestiona el procesamiento y la conexión oculta de la información organizativa."
+                    },
+                    {
+                        enunciado: "En el ecosistema M365, las herramientas no son aplicaciones aisladas sino un...",
+                        opciones: { A: "Servidor físico local", B: "Sistema interconectado que centraliza el flujo de trabajo", C: "Disco de almacenamiento análogo", D: "Software externo comercial" },
+                        correcta: "B", justificacion: "La interconexión nativa permite que la información fluya de forma continua y centralizada."
+                    },
+                    {
+                        enunciado: "¿Qué herramienta actúa como el FrontEnd unificado donde converge la comunicación y el acceso a los documentos?",
+                        opciones: { A: "Microsoft Outlook Exchange.", B: "Microsoft Teams.", C: "Microsoft OneDrive personal.", D: "SharePoint Central Admin." },
+                        correcta: "B", justificacion: "Teams funciona como el Hub unificado de usuario, sirviendo de interfaz directa para conectar archivos, tareas y chats."
+                    },
+                    {
+                        enunciado: "La capa de productividad es donde trabajan los usuarios directamente; por ende, corresponde al:",
+                        opciones: { A: "Backend transaccional", B: "Frontend o capa operativa visible", C: "Servidor proxy", D: "Criptosistema Azure" },
+                        correcta: "B", justificacion: "Toda aplicación con la que interactúa el usuario de forma directa compone la capa del frontend."
+                    },
+                    {
+                        enunciado: "Cuando SharePoint procesa permisos documentales en segundo plano, está actuando como:",
+                        opciones: { A: "Un canal de Teams", B: "El Core Backend de datos de la organización", C: "Un correo de Outlook", D: "Un bucket de Planner" },
+                        correcta: "B", justificacion: "La gestión de accesos corporativos y seguridad de archivos se ejecuta en el backend de SharePoint."
+                    },
+                    {
+                        enunciado: "El flujo de datos del ecosistema indica que la información se consolida formalmente en:",
+                        opciones: { A: "OneDrive borrador", B: "SharePoint", C: "El disco duro local", D: "El buscador Edge" },
+                        correcta: "B", justificacion: "SharePoint es la base documental donde se asientan y guardan los datos unificados del grupo."
+                    },
+                    {
+                        enunciado: "¿Qué componente del backend asegura que las tareas de Planner se visualicen correctamente en Teams?",
+                        opciones: { A: "La capa lógica de procesamiento de tareas de Planner", B: "El buzón de salida de Outlook", C: "La caché del navegador web", D: "El disco duro local" },
+                        correcta: "A", justificacion: "La capa lógica procesa los datos de buckets y tareas para enviarlos de forma fluida a la interfaz de Teams."
+                    },
+                    {
+                        enunciado: "La creación de un archivo en el espacio personal del usuario inicia el flujo del ecosistema desde:",
+                        opciones: { A: "SharePoint directamente", B: "OneDrive personal", C: "El correo unificado", D: "El calendario público" },
+                        correcta: "B", justificacion: "OneDrive provee el espacio de almacenamiento personal para iniciar borradores antes de compartirlos."
+                    }
+                ],
+                2: [ // 2. Microsoft Teams como Aula Virtual / LMS
+                    {
+                        enunciado: "Al estructurar Microsoft Teams como un Entorno de Gestión del Aprendizaje (LMS), ¿cuál es el rol del Instructor?",
+                        opciones: { A: "Miembro del equipo con permisos restringidos.", B: "Propietario del equipo con control total sobre configuración, canales y tareas.", C: "Invitado externo administrado.", D: "Supervisor analítico sin capacidad de modificar contenidos." },
+                        correcta: "B", justificacion: "En el modelo Teams LMS, el instructor asume el rol de Propietario para coordinar y evaluar el curso de forma soberana."
+                    },
+                    {
+                        enunciado: "Para organizar de forma óptima el aprendizaje dentro de un curso en Teams, ¿cuál es la recomendación clave?",
+                        opciones: { A: "Colocar todo el material exclusivamente en el muro del canal General.", B: "Crear un equipo diferente por cada semana de clase.", C: "Estructurar el curso mediante canales temáticos específicos.", D: "Prohibir el uso de canales para centralizar todo en mensajes privados." },
+                        correcta: "C", justificacion: "Los canales segmentan de forma clara el itinerario formativo, evitando la saturación del canal General."
+                    },
+                    {
+                        enunciado: "Al usar Teams como LMS, ¿qué sección representa la 'ficticia aula virtual' o curso?",
+                        opciones: { A: "Un chat privado", B: "Un Equipo o Ficha estructurado", C: "Un archivo local de Word", D: "La bandeja de entrada de Outlook" },
+                        correcta: "B", justificacion: "El Equipo unifica a los aprendices como miembros y al instructor como propietario."
+                    },
+                    {
+                        enunciado: "Es el único canal inamovible creado por defecto en Microsoft Teams:",
+                        opciones: { A: "Canal de Contenidos", B: "Canal General", C: "Canal de Soporte", D: "Canal de Actividades" },
+                        correcta: "B", justificacion: "El canal General centraliza avisos y es la raíz nativa del equipo."
+                    },
+                    {
+                        enunciado: "Dentro de la pestaña Tareas de Teams como LMS, ¿cuál es una práctica mandatoria para la estandarización?",
+                        opciones: { A: "Cambiar los nombres en cada reto usando términos variables.", B: "Utilizar una nomenclatura uniforme, adjuntar instrucciones explícitas y fijar una única vía de entrega.", C: "Permitir que las evidencias se envíen de forma abierta por cualquier red.", D: "Ocultar la rúbrica de evaluación." },
+                        correcta: "B", justificacion: "Garantizar una vía unificada elimina cuellos de botella y asegura transparencia en auditorías."
+                    },
+                    {
+                        enunciado: "¿Cuál es el propósito fundamental de utilizar canales en un equipo de Teams configurado como LMS?",
+                        opciones: { A: "Segmentar y organizar los contenidos, actividades y soporte del curso de forma temática.", B: "Restringir el chat entre los estudiantes.", C: "Aumentar el consumo de datos de internet.", D: "Duplicar las pestañas de Planner." },
+                        correcta: "A", justificacion: "Los canales sirven para organizar de forma lógica y estructurada el flujo del aprendizaje."
+                    },
+                    {
+                        enunciado: "En un curso estructurado en Teams, los aprendices se vinculan bajo el rol de:",
+                        opciones: { A: "Propietarios administradores", B: "Miembros del equipo", C: "Invitados externos temporales", D: "Desarrolladores de código" },
+                        correcta: "B", justificacion: "Los estudiantes ingresan como miembros para interactuar, ver contenidos y entregar tareas sin alterar la estructura."
+                    },
+                    {
+                        enunciado: "¿Qué ventaja ofrece la pestaña de Tareas nativa de Teams en comparación con recibir correos?",
+                        opciones: { A: "Centraliza las entregas, los plazos, las calificaciones y la retroalimentación en un solo lugar.", B: "Permite borrar las entregas de los alumnos sin dejar rastro.", C: "Envía un mensaje de texto al teléfono celular del alumno.", D: "Sincroniza los archivos con discos locales externos." },
+                        correcta: "A", justificacion: "La pestaña Tareas es el módulo LMS por excelencia para el control y registro de evidencias evaluables."
+                    },
+                    {
+                        enunciado: "Al publicar anuncios formales u oficiales en el curso, el canal idóneo es:",
+                        opciones: { A: "Canal Soporte", B: "Canal General", C: "Chat privado grupal", D: "Pestaña de Gráficos" },
+                        correcta: "B", justificacion: "El canal General está reservado para la comunicación macro, avisos oficiales y directrices del instructor."
+                    },
+                    {
+                        enunciado: "La organización metodológica del docente dentro de Teams influye directamente en:",
+                        opciones: { A: "El espacio físico del centro de formación", B: "La claridad, el orden del proceso y la disminución de dudas del aprendiz", C: "La velocidad de navegación del proveedor de internet", D: "El tipo de contrato civil del estudiante" },
+                        correcta: "B", justificacion: "Un entorno virtual bien estructurado facilita la autogestión y el éxito del proceso formativo."
+                    }
+                ],
+                3: [ // 3. Repositorio y Flujos de Información (SharePoint & OneDrive)
+                    {
+                        enunciado: "Dentro de las buenas prácticas de gestión documental, ¿cuál es la diferencia funcional entre OneDrive y SharePoint?",
+                        opciones: { A: "OneDrive almacena bases de datos SQL y SharePoint guarda archivos de Word.", B: "OneDrive es para borradores y trabajo individual; SharePoint es el repositorio oficial e institucional del grupo.", C: "SharePoint es de uso exclusivo para aprendices y OneDrive para instructores.", D: "No existe ninguna diferencia; son exactamente el mismo servicio." },
+                        correcta: "B", justificacion: "OneDrive representa el espacio personal de desarrollo; SharePoint consolida la información autorizada del equipo."
+                    },
+                    {
+                        enunciado: "¿Cuál es el flujo correcto de la información para publicar material de estudio oficial según el estándar?",
+                        opciones: { A: "Teams → Correo Masivo → OneDrive Personal.", B: "OneDrive (Preparación personal) → Teams (Publicación al curso) → SharePoint (Almacenamiento institucional definitivo).", C: "SharePoint Interno → WhatsApp Grupal → Calendario Outlook.", D: "Descarga local → Impresión física → OneDrive del Centro." },
+                        correcta: "B", justificacion: "Este flujo garantiza la trazabilidad, la centralización institucional y evita la duplicación de archivos obsoletos."
+                    },
+                    {
+                        enunciado: "Todo archivo compartido que vive en los canales de Teams realmente reside en...",
+                        opciones: { A: "El disco duro del PC", B: "SharePoint (Base documental de almacenamiento organizacional)", C: "El calendario de Outlook", D: "La memoria RAM del sistema" },
+                        correcta: "B", justificacion: "Teams expone en la capa de frontend lo que SharePoint aloja y organiza de forma segura en el backend."
+                    },
+                    {
+                        enunciado: "El espacio personal para archivos individuales y borradores en desarrollo es:",
+                        opciones: { A: "SharePoint Institucional", B: "Microsoft OneDrive", C: "Microsoft Planner Colectivo", D: "Muro de Teams" },
+                        correcta: "B", justificacion: "OneDrive está destinado al trabajo personal antes de decidir su publicación oficial al grupo."
+                    },
+                    {
+                        enunciado: "¿Cuándo se debe acceder a los archivos directamente desde la interfaz de SharePoint?",
+                        opciones: { A: "Para chatear de forma síncrona.", B: "Cuando se necesite una estructura compleja de carpetas, control de versiones o gestión de documentos institucionales base.", C: "Únicamente cuando la plataforma de Teams sufra una caída total.", D: "Para responder cuestionarios interactivos." },
+                        correcta: "B", justificacion: "SharePoint ofrece funciones avanzadas de auditoría, control de versiones e histórico documental corporativo."
+                    },
+                    {
+                        enunciado: "Si subes una guía de aprendizaje a un canal de Teams, en el backend estás impactando a:",
+                        opciones: { A: "La base de datos de Outlook", B: "El sitio de SharePoint del equipo", C: "El disco duro local del aprendiz", D: "El servidor de Power Automate" },
+                        correcta: "B", justificacion: "Teams y SharePoint están integrados de tal forma que los archivos de los canales viven en carpetas de SharePoint."
+                    },
+                    {
+                        enunciado: "OneDrive debe ser considerado por el instructor como un espacio de:",
+                        opciones: { A: "Almacenamiento institucional del curso", B: "Borradores y preparación personal de clases", C: "Entrega oficial de evidencias de alumnos", D: "Foro de debate público" },
+                        correcta: "B", justificacion: "OneDrive es un repositorio individual de archivos en proceso, no el sitio de consulta oficial del curso."
+                    },
+                    {
+                        enunciado: "¿Qué sucede con la trazabilidad si compartes archivos del curso desde tu OneDrive personal en lugar de cargarlos en Teams?",
+                        opciones: { A: "Se debilita el repositorio institucional y se pierde el control centralizado del centro.", B: "Aumenta la velocidad de descarga.", C: "Los alumnos adquieren permisos de administración en SharePoint.", D: "Se borran automáticamente al final del día." },
+                        correcta: "A", justificacion: "Los archivos del curso deben vivir en el espacio del equipo (SharePoint/Teams) para garantizar la continuidad institucional."
+                    },
+                    {
+                        enunciado: "El control de versiones en SharePoint es sumamente útil para:",
+                        opciones: { A: "Ver el historial de modificaciones de documentos institucionales y guías base.", B: "Cambiar la foto de perfil de Teams.", C: "Aumentar la cantidad de grupos en Planner.", D: "Enviar correos automáticos a Outlook." },
+                        correcta: "A", justificacion: "El control de versiones permite auditar cambios, recuperar estados anteriores y mantener un archivo fidedigno."
+                    },
+                    {
+                        enunciado: "La estructura documental ordenada en el repositorio oficial evita:",
+                        opciones: { A: "El cobro de la licencia de software", B: "La duplicación de información y el manejo de archivos obsoletos", C: "La visualización de tareas en To Do", D: "El uso de check-ins en Reflect" },
+                        correcta: "B", justificacion: "Centralizar los archivos en SharePoint garantiza que todos consulten la versión vigente y autorizada."
+                    }
+                ],
+                4: [ // 4. Planificación y Gestión del Tiempo (Calendario M365)
+                    {
+                        enunciado: "Al publicar un evento de fecha límite en el Calendario de Teams para evitar olvidos académicos, ¿cuál es una buena práctica?",
+                        opciones: { A: "No colocar título para generar intriga.", B: "Usar un título claro como 'ENTREGA - Reto 01', aclarar que no es clase e incluir el enlace directo a la tarea.", C: "Programarlo a la misma hora de la sesión presencial.", D: "Asignarle prioridad baja en To Do." },
+                        correcta: "B", justificacion: "Establecer la estructura clara en el calendario unificado reduce confusiones y olvidos en entregas sincrónicas."
+                    },
+                    {
+                        enunciado: "¿Qué herramienta del ecosistema de Microsoft 365 consolida automáticamente a nivel personal las tareas asignadas en Planner?",
+                        opciones: { A: "Microsoft SharePoint Lists.", B: "Microsoft To Do (sección Asignado a mí).", C: "Microsoft Access Online.", D: "Power BI Pro Dynamics." },
+                        correcta: "B", justificacion: "Microsoft To Do es el agregador de tareas individuales que unifica Planner y el día a día del colaborador."
+                    },
+                    {
+                        enunciado: "Los recordatorios de vencimiento de tareas de Planner se integran de forma nativa con:",
+                        opciones: { A: "Microsoft Power BI", B: "Microsoft Outlook (Notificaciones y Agenda)", C: "SharePoint central", D: "Reflect emocional" },
+                        correcta: "B", justificacion: "Outlook centraliza las alertas de agenda y tiempos límites del ecosistema a través del correo e invitaciones."
+                    },
+                    {
+                        enunciado: "Para consolidar tus subtareas y evidencias de control interno en Planner usas...",
+                        opciones: { A: "Un nuevo bucket", B: "La Lista de comprobación o Checklist de la tarea", C: "Un canal privado de Teams", D: "Un correo en Outlook" },
+                        correcta: "B", justificacion: "El checklist mide el avance operativo real y pormenorizado de la tarjeta Kanban."
+                    },
+                    {
+                        enunciado: "¿Qué limitación nativa presenta el Calendario de Microsoft Teams al programar alertas?",
+                        opciones: { A: "No permite establecer fechas a largo plazo.", B: "Borra automáticamente las tareas.", C: "Muestra todos los eventos visualmente bajo el formato de 'Reunión', aunque no lo sean.", D: "Está restringido a administradores globales." },
+                        correcta: "C", justificacion: "El calendario es un gran apoyo de autogestión, pero etiqueta todo como reunión, por lo que se debe especificar en el texto."
+                    },
+                    {
+                        enunciado: "Para que un aprendiz tenga éxito en su autogestión, el calendario debe utilizarse como:",
+                        opciones: { A: "El espacio de carga de archivos de evidencias", B: "Un mapa de ruta visual y recordatorio de momentos clave de entrega", C: "Un chat informal de asistencia", D: "Un repositorio de guías de aprendizaje" },
+                        correcta: "B", justificacion: "El calendario sitúa en el tiempo las responsabilidades sin reemplazar los módulos de entrega (Tareas)."
+                    },
+                    {
+                        enunciado: "La aplicación 'Microsoft To Do' ayuda al colaborador individual porque:",
+                        opciones: { A: "Genera informes de nómina automáticamente.", B: "Muestra su lista de tareas personales unificada con las de los planes grupales de Planner.", C: "Permite programar reuniones de Teams.", D: "Es el backend de almacenamiento de SharePoint." },
+                        correcta: "B", justificacion: "To Do consolida el día a día individual, cruzando las obligaciones del usuario de forma ágil."
+                    },
+                    {
+                        enunciado: "Cuando una tarea en Planner tiene una fecha de vencimiento clara, esta impacta a:",
+                        opciones: { A: "El manual de funciones del cargo", B: "La programación de alertas y visualización temporal en el ecosistema", C: "La velocidad del sitio web Netlify", D: "Los colores del logo institucional" },
+                        correcta: "B", justificacion: "Las fechas límites ordenan cronológicamente las alertas automáticas enviadas a Outlook y vistas de calendario."
+                    },
+                    {
+                        enunciado: "Establecer fechas límites en las actividades de Planner es una buena práctica para:",
+                        opciones: { A: "Evitar la acumulación de trabajo en proceso y fomentar la disciplina de entrega", B: "Ocultar el avance de los proyectos", C: "Sancionar económicamente al equipo", D: "Cambiar el tipo de contrato laboral" },
+                        correcta: "A", justificacion: "Las fechas delimitan el tiempo efectivo y miden de forma objetiva los retrasos en los tableros Kanban."
+                    },
+                    {
+                        enunciado: "En la gestión del tiempo del ecosistema, Outlook aporta:",
+                        opciones: { A: "El almacenamiento de videos pesados", B: "La comunicación formal, correos institucionales y la agenda unificada", C: "El renderizado de código HTML/CSS", D: "El control emocional de Reflect" },
+                        correcta: "B", justificacion: "Outlook es la base de la mensajería formal y la sincronización horaria del ecosistema M365."
+                    }
+                ],
+                5: [ // 5. Analítica Educativa y Comportamiento (Insights)
+                    {
+                        enunciado: "¿Cuál de las siguientes opciones describe la función principal de la extensión 'Insights' dentro de un equipo de Microsoft Teams?",
+                        opciones: { A: "Generar calificaciones numéricas automatizadas.", B: "Visualizar y analizar macrodatos de participación, entregas y tendencias de interacción para decisiones pedagógicas.", C: "Bloquear el acceso a internet de los alumnos rezagados.", D: "Enviar correos de felicitación masivos." },
+                        correcta: "B", justificacion: "Insights es una herramienta analítica y de diagnóstico enfocada en la mejora del acompañamiento docente basada en datos."
+                    },
+                    {
+                        enunciado: "Un instructor nota en Insights una caída drástica en las interacciones. ¿Qué acción pedagógica se deriva de esto?",
+                        opciones: { A: "Sancionar de forma unánime a todo el grupo.", B: "Ignorar el dato puesto que las métricas digitales no importan.", C: "Identificar los momentos críticos y ajustar las estrategias didácticas para rescatar el compromiso.", D: "Eliminar el canal temático." },
+                        correcta: "C", justificacion: "Insights busca transformar datos en acciones pedagógicas oportunas para guiar el curso."
+                    },
+                    {
+                        enunciado: "Insights es una herramienta embebida en Teams orientada a...",
+                        opciones: { A: "Asignar notas directas", B: "La analítica educativa basada en macrodatos de participación e interacción", C: "Enviar alertas de soporte técnico", D: "Realizar encuestas salariales" },
+                        correcta: "B", justificacion: "Insights recolecta de forma pasiva la actividad para facilitar la labor de supervisión y docencia."
+                    },
+                    {
+                        enunciado: "Para detectar aprendices con baja participación o entregas atrasadas revisas...",
+                        opciones: { A: "El almacenamiento de OneDrive", B: "La pestaña de analítica Insights", C: "Los comentarios de Planner", D: "El calendario de Outlook" },
+                        correcta: "B", justificacion: "Insights consolida de forma gráfica el estado de cumplimiento y participación académica del grupo."
+                    },
+                    {
+                        enunciado: "¿Qué afirmación define correctamente el alcance de Insights?",
+                        opciones: { A: "Insights califica los retos de los alumnos.", B: "Insights no califica, analiza el comportamiento y participación.", C: "Insights reemplaza las guías de aprendizaje.", D: "Insights controla la velocidad del procesador del computador." },
+                        correcta: "B", justificacion: "Es un panel analítico que agrupa tendencias, dejando la valoración cualitativa en manos del instructor."
+                    },
+                    {
+                        enunciado: "Entre los datos que Insights muestra de forma clara en sus gráficas se encuentra:",
+                        opciones: { A: "La participación en publicaciones, comentarios y reacciones de los canales", B: "Las contraseñas de las cuentas institucionales", C: "El historial de búsquedas en internet de los alumnos", D: "El estado financiero de la organización" },
+                        correcta: "A", justificacion: "Mide el nivel de actividad digital y conversación dentro de los linderos del equipo virtual."
+                    },
+                    {
+                        enunciado: "Revisar los datos de Insights semanalmente permite al instructor:",
+                        opciones: { A: "Reducir la memoria RAM del servidor", B: "Detectar de forma temprana estudiantes en riesgo de deserción o rezago académica", C: "Duplicar la cantidad de canales del curso", D: "Ocultar la pestaña de tareas" },
+                        correcta: "B", justificacion: "La analítica oportuna permite intervenciones preventivas antes de que el aprendiz pierda el hilo del curso."
+                    },
+                    {
+                        enunciado: "Una buena práctica con Insights es:",
+                        opciones: { A: "Usarlo exclusivamente como un mecanismo de castigo o control policivo", B: "Cruzar sus datos con observaciones reales y usarlo como apoyo pedagógico", C: "Borrar las métricas al iniciar el mes", D: "Restringir su visualización a los directores externos" },
+                        correcta: "B", justificacion: "Los datos sin contextualización humana pierden su poder; deben guiar la empatía y la mejora didáctica."
+                    },
+                    {
+                        enunciado: "Insights convierte los datos en:",
+                        opciones: { A: "Archivos ZIP comprimidos", B: "Acciones pedagógicas con base en evidencia", C: "Modelos de bases de datos análogas", D: "Fórmulas matemáticas complejas" },
+                        correcta: "B", justificacion: "Su fin es dotar al docente de argumentos objetivos para mejorar el diseño de retos y soporte."
+                    },
+                    {
+                        enunciado: "El uso de la analítica de aprendizaje en entornos virtuales respalda:",
+                        opciones: { A: "Las decisiones basadas en la intuición o subjetividad del supervisor", B: "Las decisiones pedagógicas soportadas en evidencias reales de interacción", C: "La eliminación de plataformas en la nube", D: "La reducción de canales temáticos" },
+                        correcta: "B", justificacion: "La toma de decisiones con datos mitiga sesgos y optimiza las rutas de acompañamiento virtual."
+                    }
+                ],
+                6: [ // 6. Monitoreo Emocional y Socioemocional (Reflect)
+                    {
+                        enunciado: "¿Cómo se define la herramienta 'Reflect' en el marco de Teams?",
+                        opciones: { A: "Un software de reconocimiento facial para control de asistencia.", B: "Una aplicación que humaniza el entorno digital promoviendo check-ins emocionales, autorreflexión y bienestar socioemocional.", C: "Un sistema de duplicación de planes Kanban.", D: "Un filtro de seguridad digital contra virus." },
+                        correcta: "B", justificacion: "Reflect complementa la analítica técnica con datos del ser, permitiendo monitorear el estrés y la motivación."
+                    },
+                    {
+                        enunciado: "Si se desea realizar una evaluación formativa del proceso de asimilación al cerrar un reto, ¿qué pregunta de Reflect es idónea?",
+                        opciones: { A: "¿Cuál es el artículo exacto de la ley laboral?", B: "¿Qué tan seguro te sientes con lo aprendido en esta misión?", C: "¿Cuántos megabytes pesa tu reporte final?", D: "¿Prefieres el Teletrabajo o el Trabajo Remoto?" },
+                        correcta: "B", justificacion: "Las escalas de sentimiento enfocadas en la seguridad de aprendizaje miden de forma cualitativa el impacto de la transferencia."
+                    },
+                    {
+                        enunciado: "Reflect permite realizar intervenciones pedagógicas oportunas sabiendo...",
+                        opciones: { A: "El estrato social", B: "Cómo se sienten emocionalmente los participantes", C: "La dirección IP de red", D: "El navegador preferido" },
+                        correcta: "B", justificacion: "Reflect humaniza el entorno capturando el clima socioemocional y los niveles de estrés del aula."
+                    },
+                    {
+                        enunciado: "La combinación estratégica ideal de analítica de comportamiento y emociones es...",
+                        opciones: { A: "Planner + OneDrive", B: "Insights (Qué hacen) + Reflect (Cómo se sienten)", C: "Outlook + SharePoint", D: "Canales + Calendario" },
+                        correcta: "B", justificacion: "Ambas herramientas proveen un diagnóstico integral, balanceando lo académico con lo humano."
+                    },
+                    {
+                        enunciado: "¿Qué elemento utiliza Reflect para facilitar la expresión emocional de forma visual?",
+                        opciones: { A: "Gráficas de barras de Excel", B: "El Monstruo de los Sentimientos o escalas visuales expresivas", C: "Tablas de datos tabulares", D: "Código de colores hexadecimales" },
+                        correcta: "B", justificacion: "El uso de avatares y escalas simplifica la identificación y el reporte de estados de ánimo."
+                    },
+                    {
+                        enunciado: "Implementar Reflect es especialmente valioso en:",
+                        opciones: { A: "Procesos 100% mecánicos industriales", B: "Cursos virtuales o entornos a distancia donde se pierde el contacto visual tradicional", C: "La configuración de bases de datos", D: "El despliegue de sitios en Netlify" },
+                        correcta: "B", justificacion: "Cierra la brecha de la distancia física, devolviendo al instructor la lectura del clima grupal."
+                    },
+                    {
+                        enunciado: "Un check-in emocional de Reflect al inicio de la semana sirve para:",
+                        opciones: { A: "Calificar la puntualidad del aprendiz", B: "Conocer la disposición anímica del equipo ante una nueva misión o carga académica", C: "Bloquear las entregas de tareas", D: "Validar la conexión de red LAN" },
+                        correcta: "B", justificacion: "Ayuda a tantear si el grupo se encuentra abrumado o motivado para encarar los objetivos planteados."
+                    },
+                    {
+                        enunciado: "Reflect fomenta en los aprendices el desarrollo de habilidades de:",
+                        opciones: { A: "Programación en Python", B: "Autoconocimiento, autorreflexión y regulación emocional", C: "Cálculo financiero avanzado", D: "Edición gráfica vectorial" },
+                        correcta: "B", justificacion: "Mirarse hacia adentro y nombrar la emoción ayuda a la madurez personal y el trabajo en equipo."
+                    },
+                    {
+                        enunciado: "A diferencia de las encuestas tradicionales, Reflect destaca por ser:",
+                        opciones: { A: "Larga y tediosa", B: "Ágil, visual, integrada a Teams y enfocada en el bienestar diario", C: "De carácter obligatorio y punitivo", D: "Oculta para el líder del equipo" },
+                        correcta: "B", justificacion: "Su diseño lúdico y rápido incrementa los niveles de respuesta sincera en la plataforma."
+                    },
+                    {
+                        enunciado: "Al incorporar Reflect, Teams pasa de ser una plataforma técnica a:",
+                        opciones: { A: "Un repositorio cerrado de archivos", B: "Un verdadero entorno humano de aprendizaje", C: "Un servidor de bases de datos local", D: "Un canal de mensajería comercial" },
+                        correcta: "B", justificacion: "La dimensión socioemocional dota de sentido humano al ecosistema tecnológico."
+                    }
+                ],
+                7: [ // 7. Criterios Legales de Selección de Modalidad (Leyes Colombianas)
+                    {
+                        enunciado: "Según la normativa colombiana, ¿en qué factor reside la decisión de asignar una modalidad no presencial?",
+                        opciones: { A: "En la preferencia o deseo individual expresado por el colaborador.", B: "En el cargo, estatus jerárquico o antigüedad dentro de la organización.", C: "En la naturaleza específica de la labor y su viabilidad técnica para medirse por entregables objetivos.", D: "En el dictamen exclusivo de la ARL." },
+                        correcta: "C", justificacion: "La ley colombiana establece que la modalidad se define analizando la tarea y sus evidencias objetivas, no las preferencias individuales."
+                    },
+                    {
+                        enunciado: "¿Cuáles son los 4 criterios básicos analizados en la matriz técnico-legal para clasificar una labor?",
+                        opciones: { A: "Interacción física, Dependencia del lugar, Nivel de supervisión y Medibilidad por resultados.", B: "Conexión a internet, Marca de PC, Edad del trabajador y Tipo de contrato.", C: "Ubicación geográfica, Horario, Canales de Teams y Etiquetas.", D: "Presupuesto, Políticas de ARL, Almacenamiento en nube y Kanban." },
+                        correcta: "A", justificacion: "Estos 4 pilares determinan la viabilidad y el umbral normativo óptimo para deslocalizar funciones."
+                    },
+                    {
+                        enunciado: "Si una labor de talento humano presenta un grado de interacción física 'Alto' (ej. firma presencial de contratos), su modalidad recomendada es:",
+                        opciones: { A: "Teletrabajo regular", B: "Modalidad Presencial", C: "Trabajo Remoto Flexible", D: "Diseño en Planner" },
+                        correcta: "B", justificacion: "La alta dependencia interactiva o de infraestructura física local inhabilita la deslocalización inmediata."
+                    },
+                    {
+                        enunciado: "Un proceso medible enteramente por entregables claros e información digitalizada es...",
+                        opciones: { A: "Inviable a distancia", B: "Candidato óptimo a Teletrabajo o Trabajo Remoto", C: "Riesgo biomecánico alto", D: "Exclusivo de Outlook" },
+                        correcta: "B", justificacion: "La medibilidad por productos y la autonomía digital viabilizan jurídicamente la deslocalización."
+                    },
+                    {
+                        enunciado: "La premisa central de las directrices organizacionales para la asignación de modalidades estipula:",
+                        opciones: { A: "La clave está en la preferencia del director.", B: "La clave no está en la persona, sino en la naturaleza de la labor.", C: "La clave reside en el horario histórico del centro.", D: "La clave es la versión del sistema Windows." },
+                        correcta: "B", justificacion: "Se evalúa técnicamente la tarea y sus flujos de información, no los deseos o el perfil subjetivo del colaborador."
+                    },
+                    {
+                        enunciado: "Si la labor demanda contacto físico directo y atención en ventanilla, el nivel de interacción se considera:",
+                        opciones: { A: "Bajo", B: "Medio", C: "Alto", D: "Irrelevante" },
+                        correcta: "C", justificacion: "La interacción directa con usuarios o manipulación física califica como un requerimiento alto de presencialidad."
+                    },
+                    {
+                        enunciado: "La viabilidad tecnológica se valida principalmente verificando que:",
+                        opciones: { A: "El trabajador posee redes sociales activas.", B: "La información esté digitalizada y existan herramientas para su seguimiento en la nube.", C: "Los servidores sean de marca local.", D: "No se utilicen canales en Teams." },
+                        correcta: "B", justificacion: "Garantizar insumos digitales y sistemas de control es requisito informático mínimo."
+                    },
+                    {
+                        enunciado: "Un nivel de supervisión enfocado puramente en entregables y productos finales se cataloga como:",
+                        opciones: { A: "Supervisión por proceso (Presencial)", B: "Supervisión baja o por resultados (Apta para trabajo a distancia)", C: "Control minutero de horario", D: "Auditoría de ventanilla física" },
+                        correcta: "B", justificacion: "El control por resultados otorga autonomía de ejecución, ideal para esquemas remotos o de teletrabajo."
+                    },
+                    {
+                        enunciado: "La matriz de decisión resume que una labor de naturaleza mixta (planeación virtual + ejecución física) corresponde a:",
+                        opciones: { A: "Esquema Presencial Rígido", B: "Trabajo Híbrido", C: "Teletrabajo Autónomo", D: "Trabajo Remoto Externo" },
+                        correcta: "B", justificacion: "Las tareas mixtas encuentran en el modelo híbrido el equilibrio operativo perfecto."
+                    },
+                    {
+                        enunciado: "Validar las condiciones de seguridad y salud en el trabajo (SST) para puestos no presenciales busca prevenir:",
+                        opciones: { A: "El cobro de licencias", B: "Riesgos biomecánicos, ergonómicos y afectaciones a la salud mental", C: "La duplicación de planes en Planner", D: "El envío de correos masivos" },
+                        correcta: "B", justificacion: "El amparo de SST es una obligación legal para mitigar peligros en entornos residenciales."
+                    }
+                ],
+                8: [ // 8. Teletrabajo y Gestión de Procesos Continuos
+                    {
+                        enunciado: "De acuerdo con la normativa, ¿cuál es una característica del Teletrabajo en Colombia?",
+                        opciones: { A: "Es un modelo informal.", B: "Representa un trabajo formal regulado, estable y planificado, con vinculación laboral directa.", C: "Se aplica únicamente a contratistas externos por prestación de servicios.", D: "Prohíbe el uso de tableros Planner." },
+                        correcta: "B", justificacion: "El teletrabajo se caracteriza por la estabilidad y el seguimiento de funciones permanentes con amparo contractual laboral directo."
+                    },
+                    {
+                        enunciado: "¿Cuál de las siguientes actividades de la gestión humana se clasifica típicamente como Teletrabajo?",
+                        opciones: { A: "Atención física en ventanilla.", B: "Gestión de nómina y control administrativo bajo procesos formales.", C: "Mantenimiento físico de servidores.", D: "Brigadista de emergencias." },
+                        correcta: "B", justificacion: "La administración de nómina y procesos continuos se adapta de forma idónea al teletrabajo estructurado."
+                    },
+                    {
+                        enunciado: "El riesgo principal del Teletrabajo si no se orienta a resultados es...",
+                        opciones: { A: "La pérdida de internet", B: "El exceso de control o burocratización del proceso", C: "La eliminación de carpetas", D: "El desuso de etiquetas" },
+                        correcta: "B", justificacion: "Monitorear procesos formales en exceso puede burocratizar o microgestionar el flujo digital."
+                    },
+                    {
+                        enunciado: "Bajo la modalidad de Teletrabajo, el tipo de vinculación con la organización es de carácter:",
+                        opciones: { A: "Prestador de servicios externo o freelance", B: "Empleado directo con relación laboral formal", C: "Contratista civil comercial", D: "Asesor temporal por horas" },
+                        correcta: "B", justificacion: "El teletrabajo regular implica subordinación laboral y nexo directo con la planta de la entidad."
+                    },
+                    {
+                        enunciado: "Para el teletrabajador, el rol de Microsoft Planner se enfoca en el:",
+                        opciones: { A: "Control operativo del avance de sus funciones por proceso continuo", B: "Diseño gráfico de volantes de pago", C: "Bloqueo de accesos a la red LAN", D: "Envío de actas físicas firmadas" },
+                        correcta: "A", justificacion: "Planner asume el control del mapa de procesos permanentes del puesto deslocalizado."
+                    },
+                    {
+                        enunciado: "Una de las grandes ventajas organizacionales del teletrabajo formal bien implementado es:",
+                        opciones: { A: "Evitar el pago de la seguridad social obligatoria", B: "Garantizar la continuidad de los procesos administrativos mediante flujos digitales trazables", C: "Eliminar las reuniones de comités", D: "Reducir la velocidad de los entregables" },
+                        correcta: "B", justificacion: "La digitalización de funciones continuas estabiliza la operación institucional extra-sede."
+                    },
+                    {
+                        enunciado: "Legalmente, un acuerdo de teletrabajo requiere ser formalizado mediante:",
+                        opciones: { A: "Un pacto verbal informal entre compañeros", B: "Un contrato laboral o un otrosí escrito con condiciones explícitas", C: "Un correo electrónico simple de felicitación", D: "Un comentario cerrado en una tarea de Planner" },
+                        correcta: "B", justificacion: "La ley colombiana exige la constancia documental del acuerdo de teletrabajo para su validez legal."
+                    },
+                    {
+                        enunciado: "El seguimiento del trabajo en el modelo de teletrabajo se caracteriza por ser:",
+                        opciones: { A: "Subjetivo y esporádico", B: "Operativo y funcional, midiendo el curso y desarrollo del proceso", C: "Exclusivamente visual por cámara encendida", D: "Inexistente debido a la distancia" },
+                        correcta: "B", justificacion: "Se enfoca en la marcha de los procedimientos de la organización mapeados en el entorno digital."
+                    },
+                    {
+                        enunciado: "En el teletrabajo, los productos típicos a entregar suelen configurarse como:",
+                        opciones: { A: "Códigos de software e infografías semanales", B: "Informes de gestión, registros, actas, reportes periódicos y soportes de procesos", C: "Planos arquitectónicos a mano", D: "Correspondencia física sellada" },
+                        correcta: "B", justificacion: "Corresponden a los entregables documentales típicos de funciones administrativas permanentes."
+                    },
+                    {
+                        enunciado: "El derecho a la desconexión laboral en el teletrabajo implica que:",
+                        opciones: { A: "El trabajador puede apagar el PC en horario laboral ordinario sin avisar.", B: "Se deben respetar los linderos del descanso, jornada máxima legal y vida familiar del colaborador.", C: "No se pueden usar canales de Teams para avisos.", D: "Se cancelan los accesos a OneDrive de forma permanente." },
+                        correcta: "B", justificacion: "Garantizar el descanso efectivo y limitar las fronteras horarias es un derecho amparado por la ley colombiana."
+                    }
+                ],
+                9: [ // 9. Trabajo Remoto y Gestión por Entregables Autónomos
+                    {
+                        enunciado: "A diferencia del Teletrabajo, el 'Trabajo Remoto' se define como:",
+                        opciones: { A: "Un modelo rígido controlado por cámaras web.", B: "Una modalidad de ejecución orientada a la entrega de actividades, proyectos o productos específicos, donde no necesariamente hay vínculo laboral directo.", C: "El trabajo que se realiza dentro del centro.", D: "Una excepción aplicable solo a directivos." },
+                        correcta: "B", justificacion: "El trabajo remoto prioriza el producto final o entregable específico por encima del control estricto de procesos continuos."
+                    },
+                    {
+                        enunciado: "¿Qué principio sintetiza la filosofía del Trabajo Remoto?",
+                        opciones: { A: "Lo importante es marcar tarjeta a las 7:00 a. m.", B: "No importa dónde se ejecute la labor, lo que importa es el resultado.", C: "El control visual diario en sede garantiza la calidad.", D: "Toda la información debe custodiarse en archivadores físicos." },
+                        correcta: "B", justificacion: "El trabajo remoto se centra en la deslocalización absoluta basada en entregables con alta autonomía operativa."
+                    },
+                    {
+                        enunciado: "Un ejemplo típico de actividad para Trabajo Remoto en Talento Humano es:",
+                        opciones: { A: "Vigilancia de instalaciones", B: "Entrevistas virtuales y procesos de selección en línea", C: "Entrega física de dotación", D: "Firma física de libros de actas" },
+                        correcta: "B", justificacion: "Los procesos de selección no presenciales aprovechan las TIC de forma autónoma y por proyecto específico."
+                    },
+                    {
+                        enunciado: "La relación contractual común en el Trabajo Remoto enfocado a proyectos específicos suele ser:",
+                        opciones: { A: "Contrato laboral de dependencia tradicional con horario minutero", B: "Contrato civil, comercial o por prestación de servicios profesionales", C: "Nombramiento provisional estatutario rígido", D: "Pacto informal de palabra" },
+                        correcta: "B", justificacion: "Al centrarse en productos específicos, es idóneo para consultores, contratistas o proveedores autónomos."
+                    },
+                    {
+                        enunciado: "En la gestión remota, la unidad de control operativa pasa de los procedimientos a:",
+                        opciones: { A: "La asistencia visual diaria", B: "Las tareas, actividades puntuales o productos finales entregados", C: "La cantidad de correos enviados en Outlook", D: "Los check-ins de Reflect" },
+                        correcta: "B", justificacion: "Se evalúa la conformidad y calidad del entregable recibido frente a los términos pactados."
+                    },
+                    {
+                        enunciado: "Microsoft Planner sirve al Trabajo Remoto como una herramienta de:",
+                        opciones: { A: "Control minutero de horas silla", B: "Gestión visual y seguimiento ágil de entregables y tareas por proyecto", C: "Almacenamiento masivo de videos MP4", D: "Base de datos SQL cerrada" },
+                        correcta: "B", justificacion: "Permite ver el estado de avance de los hitos y productos pactados de forma transparente."
+                    },
+                    {
+                        enunciado: "La pérdida de trazabilidad en el trabajo remoto ocurre principalmente cuando:",
+                        opciones: { A: "Se usan etiquetas de colores en Planner.", B: "No se cargan las evidencias objetivas de los productos en las plataformas de la nube.", C: "Se trabaja desde ciudades costeras.", D: "Se chatea por Teams en canales temáticos." },
+                        correcta: "B", justificacion: "En entornos virtuales, el trabajo que no cuenta con un soporte documental o registro digital, operativamente no existe."
+                    },
+                    {
+                        enunciado: "Son productos típicos del trabajo remoto enfocado a talento humano:",
+                        opciones: { A: "Planillas de asistencia física firmadas con esfero", B: "Documentos finales, diseños de perfiles, dashboards de indicadores o informes específicos aprobados", C: "Archivadores de carpetas de cartón", D: "Maquetas físicas de puestos de trabajo" },
+                        correcta: "B", justificacion: "Representan productos intelectuales o técnicos digitales terminados y listos para su uso institucional."
+                    },
+                    {
+                        enunciado: "La autonomía operativa en el trabajo remoto implica que el colaborador:",
+                        opciones: { A: "Puede alterar metas de calidad sin consultar.", B: "Gestiona de forma libre su tiempo y espacio para cumplir con los entregables acordados.", C: "No tiene supervisión de ningún tipo.", D: "Está exento de usar el ecosistema de Microsoft 365." },
+                        correcta: "B", justificacion: "La flexibilidad horaria es contraprestación directa de la responsabilidad por cumplimiento de metas específicas."
+                    },
+                    {
+                        enunciado: "Para auditar la efectividad de un contrato de trabajo remoto se revisa:",
+                        opciones: { A: "La minuta de entrada del vigilante de la sede", B: "Los tableros de Planner, evidencias cargadas en SharePoint y la calidad del producto final", C: "La marca del módem de internet", D: "Los estados de ánimo históricos de Reflect" },
+                        correcta: "B", justificacion: "Los registros digitales e hitos completados constituyen el soporte técnico del cumplimiento contractual."
+                    }
+                ],
+                10: [ // 10. Trabajo Híbrido, Metodología Kanban y Filosofía Ágil
+                    {
+                        enunciado: "¿Cómo opera la modalidad de 'Trabajo Híbrido' descrita en las guías?",
+                        opciones: { A: "Obliga a laborar el doble de la jornada legal ordinaria.", B: "Es un modelo de gestión estratégico que combina teletrabajo y trabajo remoto según las actividades.", C: "Elimina por completo el uso de SharePoint.", D: "Es exclusivo para contratistas externos de desarrollo." },
+                        correcta: "B", justificacion: "El modelo híbrido integra de forma flexible procesos y entregables combinando presencialidad y virtualidad."
+                    },
+                    {
+                        enunciado: "Al implementar la metodología Kanban a través de Microsoft Planner, ¿qué representan los 'Buckets'?",
+                        opciones: { A: "Los nombres de los integrantes.", B: "Las columnas visuales fijas que estructuran el flujo (Actividades asignadas, En ejecución, En validación, Cerradas).", C: "Las fechas límites de la agenda.", D: "Las contraseñas de seguridad digital." },
+                        correcta: "B", justificacion: "Los buckets mapean el flujo continuo del trabajo en Kanban. Una tarea se mueve según su avance real."
+                    },
+                    {
+                        enunciado: "La metodología Kanban tiene sus raíces históricas en la empresa...",
+                        opciones: { A: "Microsoft Corporation", B: "Toyota (Taiichi Ohno - 1940)", C: "Ford Motor Company", D: "Google Active Directory" },
+                        correcta: "B", justificacion: "Kanban nació en la manufactura japonesa como un control de flujo altamente visual basado en señales."
+                    },
+                    {
+                        enunciado: "En Kanban, el término WIP (Work in Progress) significa de forma estricta:",
+                        opciones: { A: "Trabajo totalmente terminado", B: "Límite de tareas permitidas en ejecución simultánea", C: "Fechas de vencimiento de Outlook", D: "Archivos guardados en OneDrive" },
+                        correcta: "B", justificacion: "Limitar el WIP evita la saturación de los colaboradores y saca a la luz cuellos de botella del proceso."
+                    },
+                    {
+                        enunciado: "En la lógica Kanban de Planner, el movimiento de una tarea entre buckets se realiza basado en:",
+                        opciones: { A: "El paso de los días del calendario automáticamente", B: "El logro de resultados y cumplimiento de evidencias del checklist", C: "El arbitrio o humor diario del supervisor", D: "El tamaño en bytes del archivo adjunto" },
+                        correcta: "B", justificacion: "Las tarjetas se arrastran al siguiente estado cuando el entregable o hito intermedio ha sido validado."
+                    },
+                    {
+                        enunciado: "Un tablero Kanban de Planner permite responder la siguiente pregunta clave del líder:",
+                        opciones: { A: "¿A qué hora encendió el computador el colaborador?", B: "¿En qué etapa del proceso se está acumulando el trabajo o existe un cuello de botella?", C: "¿Cuántas gigabytes quedan libres en SharePoint?", D: "¿Cuál es el correo institucional del aprendiz?" },
+                        correcta: "B", justificacion: "Al ser un sistema visual, la acumulación inusual de tarjetas en una columna delata fallos de fluidez operativa."
+                    },
+                    {
+                        enunciado: "La asignación grupal de una tarea en Planner (ej: varios responsables en una sola tarjeta) representa:",
+                        opciones: { A: "Un error de configuración del software", B: "Un enfoque ágil válido donde coexisten varios responsables para un resultado común", C: "Una violación al derecho de desconexión laboral", D: "Un mecanismo para triplicar las notas numéricas" },
+                        correcta: "B", justificacion: "El trabajo colaborativo agrupa capacidades en torno a un único hito o entregable compartido en el tablero."
+                    },
+                    {
+                        enunciado: "En la rutina de seguimiento Kanban en Planner, el estado de revisión se denomina típicamente:",
+                        opciones: { A: "Actividades asignadas", B: "En validación", C: "Actividades cerradas", D: "Borradores OneDrive" },
+                        correcta: "B", justificacion: "Es el bucket destinado al control de calidad e inspección de las evidencias antes del cierre definitivo."
+                    },
+                    {
+                        enunciado: "Completar los elementos de la lista de comprobación (checklist) de una tarea en Planner causa que:",
+                        opciones: { A: "Se borre la tarea automáticamente de la interfaz.", B: "Se incremente el porcentaje visual de avance real de la tarjeta Kanban.", C: "Se envíe un correo de felicitación firmado por el director.", D: "Se altere el nombre del canal temático." },
+                        correcta: "B", justificacion: "El checklist computa el progreso interno y pormenorizado del reto asignado al colaborador."
+                    },
+                    {
+                        enunciado: "La gran ventaja de usar la 'Vista de Gráficos' de Planner en una reunión es:",
+                        opciones: { A: "Poder editar el código fuente HTML/CSS del sitio.", B: "Obtener un informe visual rápido del estado de las tareas y la distribución de carga por usuario.", C: "Cambiar las claves de red del equipo.", D: "Monitorear las escalas emocionales de Reflect." },
+                        correcta: "B", justificacion: "Los gráficos traducen la data tabular en métricas visuales de rendimiento y balance de cargas de trabajo."
+                    }
+                ]
+            };
+
+            // Llenado alternativo del banco para mantener el motor sin textos de relleno o validación espurios
+            const temasAdicionales = [
+                { cat: 1, e: "El procesamiento oculto de metadatos y la sincronización se ejecutan en el...", o: ["Frontend operativo", "Backend del ecosistema", "Muro unificado de Teams", "Calendario de actividades"], c: "B", j: "El backend gestiona de manera transparente el procesamiento y la conexión oculta de la información organizativa." },
+                { cat: 1, e: "En el entorno M365, las herramientas trabajan de forma integrada conformando un...", o: ["Servidor de red local", "Sistema conectado que centraliza el flujo de datos", "Disco duro externo", "Software comercial aislado"], c: "B", j: "La interconexión nativa permite que la información fluya de manera continua y centralizada." },
+                { cat: 2, e: "Al usar Teams como LMS, ¿qué componente representa el espacio estructurado del curso?", o: ["Un chat grupal", "Un Equipo o Ficha académica", "Un archivo de texto local", "La bandeja de entrada"], c: "B", j: "El Equipo unifica a los aprendices como miembros y al instructor como propietario de la ficha." },
+                { cat: 2, e: "Es el canal inamovible creado automáticamente en todo nuevo equipo:", o: ["Canal Contenidos", "Canal General", "Canal Soporte", "Canal Actividades"], c: "B", j: "El canal General centraliza avisos oficiales y es la raíz nativa estructural del equipo." },
+                { cat: 3, e: "Todo documento compartido que vive en los canales de Teams reside en el backend en...", o: ["El almacenamiento de la PC", "SharePoint como base documental", "La bandeja de Outlook", "La memoria RAM"], c: "B", j: "Teams expone en el frontend los archivos que SharePoint aloja y organiza de forma segura." },
+                { cat: 3, e: "El espacio personal para archivos individuales antes de ser publicados al grupo es:", o: ["SharePoint Institucional", "Microsoft OneDrive", "Microsoft Planner Colectivo", "Muro de canales"], c: "B", j: "OneDrive provee un entorno de almacenamiento personal óptimo para borradores individuales." },
+                { cat: 4, e: "Los recordatorios de tiempos límites de Planner se integran de forma nativa con:", o: ["Microsoft Power BI", "Microsoft Outlook para alertas de agenda", "SharePoint central", "Reflect unificado"], c: "B", j: "Outlook centraliza las alertas de agenda y tiempos límites del ecosistema." },
+                { cat: 4, e: "Para consolidar subtareas e hitos internos dentro de una actividad de Planner usas...", o: ["Un nuevo bucket", "La Lista de comprobación o Checklist", "Un canal privado", "Un correo saliente"], c: "B", j: "El checklist mide el progreso real e interno de cada tarea del tablero." },
+                { cat: 5, e: "Insights es una herramienta embebida en Teams diseñada para...", o: ["Asignar notas numéricas", "La analítica educativa de participación", "Enviar reportes de soporte", "Realizar encuestas externas"], c: "B", j: "Insights analiza comportamientos digitales para facilitar decisiones pedagógicas." },
+                { cat: 5, e: "Para detectar aprendices con baja participación o entregas atrasadas revisas...", o: ["El almacenamiento personal", "La pestaña analítica Insights", "Los comentarios de Planner", "El calendario unificado"], c: "B", j: "Insights consolida de forma gráfica el estado de actividad del grupo." },
+                { cat: 6, e: "Reflect permite realizar intervenciones oportunas conociendo...", o: ["El estrato social", "Cómo se sienten emocionalmente los participantes", "La dirección IP de red", "El navegador preferido"], c: "B", j: "Reflect humaniza el LMS capturando el clima socioemocional del aula." },
+                { cat: 6, e: "La combinación estratégica de analítica de comportamiento y emociones es...", o: ["Planner + OneDrive", "Insights junto con Reflect", "Outlook + SharePoint", "Canales + Calendario"], c: "B", j: "Ambas herramientas proveen un diagnóstico integral, balanceando lo académico y lo humano." },
+                { cat: 7, e: "Si una labor exige uso continuo de laboratorios locales de la sede, su dependencia es...", o: ["Baja", "Alta requiriendo presencialidad", "Nula", "Digitalizada"], c: "B", j: "La dependencia estricta de infraestructura física local obliga al entorno presencial." },
+                { cat: 7, e: "Un proceso medible enteramente por entregables objetivos e información digitalizada es...", o: ["Inviable a distancia", "Candidato idóneo a Teletrabajo o Remoto", "Riesgo ergonómico alto", "Exclusivo de Outlook"], c: "B", j: "La medibilidad por productos y la autonomía digital viabilizan jurídicamente la deslocalización." },
+                { cat: 8, e: "El Teletrabajo se fundamenta esencialmente en un modelo con:", o: ["Contratos verbales cortos", "Vinculación laboral directa y procesos permanentes", "Prestación de servicios independientes", "Ausencia de políticas internas"], c: "B", j: "El teletrabajo regula funciones permanentes bajo una relación de dependencia laboral directa." },
+                { cat: 8, e: "El riesgo principal del Teletrabajo si no se orienta a resultados es...", o: ["La pérdida de internet", "El exceso de control o burocratización del proceso", "La eliminación de carpetas", "El desfase de etiquetas"], c: "B", j: "Monitorear procesos en exceso puede burocratizar o microgestionar el flujo digital." },
+                { cat: 9, e: "El Trabajo Remoto se orienta principalmente a la gestión de...", o: ["Horarios minuteros estrictos", "Actividades específicas, proyectos o productos", "Ventanillas de correspondencia", "Asistencia física continua"], c: "B", j: "En lo remoto prima la entrega puntual del producto sobre el control de la jornada." },
+                { cat: 9, e: "Un ejemplo típico de actividad para Trabajo Remoto en Talento Humano es...", o: ["Vigilancia de sedes", "Entrevistas virtuales y selección en línea", "Entrega física de dotación", "Firma de actas físicas"], c: "B", j: "Los procesos de selección no presenciales aprovechan las TIC de forma autónoma." },
+                { cat: 10, e: "La metodología Kanban tiene sus raíces históricas en...", o: ["Microsoft Corporation", "Toyota por Taiichi Ohno", "Ford Motor Company", "Google Active Directory"], c: "B", j: "Kanban nació en la manufactura japonesa como un control de flujo visual." },
+                { cat: 10, e: "En Kanban, el término WIP significa de forma estricta:", o: ["Trabajo totalmente terminado", "Límite de tareas permitidas en ejecución simultánea", "Fechas de vencimiento de Outlook", "Archivos guardados en OneDrive"], c: "B", j: "Limitar el WIP evita la saturación de los colaboradores en los tableros." }
+            ];
+
+    // Se integran las preguntas adicionales (sin duplicados) y se agrega la opción E
+    for (let i = 1; i <= 10; i++) {
+      const base = bancoPreguntasCompleto[i];
+      const vistos = new Set(base.map(q => q.enunciado.trim().toLowerCase()));
+      temasAdicionales.filter(t => t.cat === i).forEach(t => {
+        if (vistos.has(t.e.trim().toLowerCase())) return;
+        const opciones = {};
+        t.o.forEach((txt, idx) => { opciones[LETRAS[idx]] = txt; });
+        base.push({ enunciado: t.e, opciones, correcta: t.c, justificacion: t.j });
+      });
+      base.forEach(p => { p.opciones.E = 'No tengo idea, gracias'; });
+    }
+
+    // ---------- Persisted dashboard data ----------
+    const DASH_KEY = 'sondeo_dashboard_v1';
+    function emptyModuleStats() {
+      const o = {};
+      for (let i = 1; i <= 10; i++) o[i] = { correct: 0, wrong: 0, unknown: 0 };
+      return o;
+    }
+    function emptyDash() { return { history: [], moduleStats: emptyModuleStats() }; }
+    function loadDash() {
+      try {
+        const raw = localStorage.getItem(DASH_KEY);
+        if (raw) {
+          const d = JSON.parse(raw);
+          if (d && Array.isArray(d.history) && d.moduleStats) return d;
+        }
+      } catch (e) { }
+      return null;
+    }
+    let DASH = loadDash() || emptyDash();
+    function saveDash() { try { localStorage.setItem(DASH_KEY, JSON.stringify(DASH)); } catch (e) { } }
+
+    // ---------- Navigation ----------
+    const tabButtons = document.querySelectorAll('#tabs button[data-section]');
+    const sections = document.querySelectorAll('main > section');
+    function goTo(name) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (name === 'dashboard') renderDashboard();
+    }
+    tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
+    document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    // ================= SONDEO =================
+    let SELECCION = [];
+    let ULTIMO = null; // último intento evaluado
+
+    function initSondeo() {
+      SELECCION = [];
+      const wrap = $('questionsWrap');
+      wrap.innerHTML = '';
+      $('sondeoMsg').textContent = '';
+
+      for (let i = 1; i <= 10; i++) {
+        const lista = bancoPreguntasCompleto[i];
+        const q = lista[Math.floor(Math.random() * lista.length)];
+        const idx = SELECCION.length;
+        SELECCION.push({ cat: i, q });
+
+        const box = document.createElement('div');
+        box.className = 'quiz-item';
+        box.id = 'q-' + idx;
+        box.innerHTML = '<div class="q-num">PREGUNTA ' + (idx + 1) + ' DE 10 · SELECCIÓN ÚNICA</div><div class="q-prompt"></div><div class="opt-list"></div>';
+        box.querySelector('.q-prompt').textContent = q.enunciado;
+        const list = box.querySelector('.opt-list');
+
+        Object.keys(q.opciones).forEach(letra => {
+          const label = document.createElement('label');
+          label.className = 'sondeo-opt' + (letra === 'E' ? ' unknown' : '');
+          const input = document.createElement('input');
+          input.type = 'radio'; input.name = 'pregunta_' + idx; input.value = letra;
+          input.addEventListener('change', () => {
+            list.querySelectorAll('.sondeo-opt').forEach(x => x.classList.remove('selected'));
+            label.classList.add('selected');
+            box.classList.remove('unanswered');
+          });
+          const l = document.createElement('span'); l.className = 'letter'; l.textContent = letra + '.';
+          const t = document.createElement('span'); t.textContent = q.opciones[letra];
+          label.appendChild(input); label.appendChild(l); label.appendChild(t);
+          list.appendChild(label);
+        });
+        wrap.appendChild(box);
+      }
+    }
+
+    function verdictFor(pct) {
+      if (pct <= 40) return {
+        key: 'low', title: '🔴 Punto de partida inicial',
+        text: 'La mayoría de los temas evaluados son nuevos para ti. Es completamente normal: la formación está diseñada para construir estas bases desde el comienzo.'
+      };
+      if (pct <= 70) return {
+        key: 'mid', title: '🟡 Base intermedia',
+        text: 'Ya conoces parte de los temas. La formación te ayudará a consolidar lo que sabes y a conectar los módulos entre sí.'
+      };
+      return {
+        key: 'high', title: '🟢 Base sólida',
+        text: 'Tienes un buen dominio previo de los contenidos evaluados. Aprovecha para profundizar y apoyar a tus compañeros.'
+      };
+    }
+
+    function evaluarSondeo() {
+      const nombre = $('nombreUsuario').value.trim();
+      const msg = $('sondeoMsg');
+      msg.textContent = '';
+
+      let firstMissing = null;
+      SELECCION.forEach((s, idx) => {
+        const box = $('q-' + idx);
+        const sel = box.querySelector('input:checked');
+        box.classList.toggle('unanswered', !sel);
+        if (!sel && !firstMissing) firstMissing = box;
+      });
+      if (!nombre) { msg.textContent = '⚠️ Escribe tu nombre completo para continuar.'; $('nombreUsuario').focus(); return; }
+      if (firstMissing) { msg.textContent = '⚠️ Responde las 10 preguntas antes de enviar.'; firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+
+      const detail = [];
+      let correct = 0, wrong = 0, unknown = 0;
+      SELECCION.forEach((s, idx) => {
+        const user = $('q-' + idx).querySelector('input:checked').value;
+        const ok = user === s.q.correcta;
+        const isUnknown = user === 'E';
+        if (ok) { correct++; DASH.moduleStats[s.cat].correct++; }
+        else if (isUnknown) { unknown++; DASH.moduleStats[s.cat].unknown++; }
+        else { wrong++; DASH.moduleStats[s.cat].wrong++; }
+        detail.push({
+          cat: s.cat, enunciado: s.q.enunciado, user, userText: s.q.opciones[user],
+          correcta: s.q.correcta, correctaText: s.q.opciones[s.q.correcta],
+          justificacion: s.q.justificacion, ok
+        });
+      });
+
+      const pct = Math.round((correct / 10) * 100);
+      const v = verdictFor(pct);
+      const weakMods = detail.filter(d => !d.ok).map(d => d.cat);
+
+      ULTIMO = { ts: Date.now(), nombre, score: correct, total: 10, correct, wrong, unknown, verdict: v.key, weakMods, detail };
+      DASH.history.push(ULTIMO);
+      saveDash();
+      renderResultado(ULTIMO, v, pct);
+    }
+
+    function renderResultado(r, v, pct) {
+      const vb = $('sondeoVerdict');
+      vb.classList.remove('low', 'mid', 'high'); vb.classList.add(v.key, 'show');
+      vb.querySelector('.v-title').textContent = v.title + ' (' + r.score + '/10 · ' + pct + '%)';
+      vb.querySelector('.v-text').textContent = r.nombre + ': ' + v.text;
+      vb.querySelector('.v-weak').textContent = r.weakMods.length
+        ? 'Módulos a reforzar: ' + r.weakMods.map(id => MOD[id].corto).join(' · ')
+        : 'No se detectaron módulos por reforzar.';
+
+      const wrap = $('reviewWrap');
+      wrap.innerHTML = '';
+      r.detail.forEach((d, i) => {
+        const box = document.createElement('div');
+        box.className = 'quiz-item';
+        box.innerHTML = '<div class="q-num"></div><div class="q-prompt"></div>' +
+          '<p style="margin:0 0 4px;font-size:.88rem;"><strong>Tu respuesta:</strong> <span class="r-user"></span></p>' +
+          '<p style="margin:0;font-size:.88rem;color:var(--teal-dark);"><strong>Respuesta correcta:</strong> <span class="r-ok"></span></p>' +
+          '<div class="quiz-feedback show"></div>';
+        box.querySelector('.q-num').textContent = 'PREGUNTA ' + (i + 1) + ' · ' + MOD[d.cat].corto.toUpperCase();
+        box.querySelector('.q-prompt').textContent = d.enunciado;
+        box.querySelector('.r-user').textContent = d.user + ' — ' + d.userText;
+        box.querySelector('.r-ok').textContent = d.correcta + ' — ' + d.correctaText;
+        const fb = box.querySelector('.quiz-feedback');
+        fb.classList.add(d.ok ? 'ok' : 'bad');
+        fb.textContent = (d.ok ? '✅ Conocimiento validado. ' : '❌ Se recomienda profundización. ') + d.justificacion;
+        wrap.appendChild(box);
+      });
+
+      $('sondeoForm').style.display = 'none';
+      $('sondeoResult').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    $('submitSondeo').addEventListener('click', evaluarSondeo);
+    $('newSondeoBtn').addEventListener('click', () => {
+      initSondeo();
+      $('sondeoResult').style.display = 'none';
+      $('sondeoForm').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    $('goDashBtn').addEventListener('click', () => goTo('dashboard'));
+    $('printResultBtn').addEventListener('click', printReport);
+    initSondeo();
+
+    // ---------- Registro del aprendiz (persistido en localStorage) ----------
+    const REG_KEY = 'sondeo_registro_aprendiz_v1';
+    function loadRegistro() {
+      try { const raw = localStorage.getItem(REG_KEY); if (raw) return JSON.parse(raw); } catch (e) { }
+      return { nombre: '', documento: '', regional: '', centro: '' };
+    }
+    function saveRegistro() {
+      const reg = {
+        nombre: $('regNombre').value.trim(),
+        documento: $('regDocumento').value.trim(),
+        regional: $('regRegional').value.trim(),
+        centro: $('regCentro').value.trim()
+      };
+      try { localStorage.setItem(REG_KEY, JSON.stringify(reg)); } catch (e) { }
+      return reg;
+    }
+    (function initRegistro() {
+      const reg = loadRegistro();
+      $('regNombre').value = reg.nombre || '';
+      $('nombreUsuario').value = reg.nombre || '';
+      $('regDocumento').value = reg.documento || '';
+      $('regRegional').value = reg.regional || '';
+      $('regCentro').value = reg.centro || '';
+      $('nombreUsuario').addEventListener('input', () => { $('regNombre').value = $('nombreUsuario').value; saveRegistro(); });
+      $('regNombre').addEventListener('input', () => { $('nombreUsuario').value = $('regNombre').value; saveRegistro(); });
+      ['regDocumento', 'regRegional', 'regCentro'].forEach(id => $(id).addEventListener('input', saveRegistro));
+    })();
+
+    // ================= DASHBOARD =================
+    function renderPieChart(containerId, slices) {
+      const container = document.getElementById(containerId); container.innerHTML = '';
+      const total = slices.reduce((s, x) => s + x.value, 0);
+      if (total <= 0) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const size = 150, r = 55, cx = size / 2, cy = size / 2, thickness = 26, circumference = 2 * Math.PI * r;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg'); svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+      const bg = document.createElementNS(svgNS, 'circle');
+      bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', r);
+      bg.setAttribute('fill', 'none'); bg.setAttribute('stroke', '#EDE7D8'); bg.setAttribute('stroke-width', thickness);
+      svg.appendChild(bg);
+      let offset = 0;
+      slices.forEach(sl => {
+        if (sl.value <= 0) return;
+        const frac = sl.value / total, len = frac * circumference;
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', cx); circle.setAttribute('cy', cy); circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'none'); circle.setAttribute('stroke', sl.color); circle.setAttribute('stroke-width', thickness);
+        circle.setAttribute('stroke-dasharray', len + ' ' + (circumference - len));
+        circle.setAttribute('stroke-dashoffset', -offset);
+        circle.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+        svg.appendChild(circle); offset += len;
+      });
+      const label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('x', cx); label.setAttribute('y', cy + 5); label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('font-size', '15'); label.setAttribute('font-weight', '800'); label.setAttribute('fill', '#14213D');
+      label.textContent = total; svg.appendChild(label);
+      const wrap = document.createElement('div'); wrap.className = 'pie-wrap'; wrap.appendChild(svg);
+      const legend = document.createElement('div'); legend.className = 'legend';
+      slices.forEach(sl => {
+        const pct = total > 0 ? Math.round((sl.value / total) * 100) : 0;
+        const row = document.createElement('div');
+        row.innerHTML = '<span class="sw" style="background:' + sl.color + '"></span>' + sl.label + ': <strong>' + sl.value + '</strong> (' + pct + '%)';
+        legend.appendChild(row);
+      });
+      wrap.appendChild(legend); container.appendChild(wrap);
+    }
+
+    function renderBarChart(containerId, categories, series, maxOverride) {
+      const container = document.getElementById(containerId); container.innerHTML = '';
+      const allValues = series.flatMap(s => s.data);
+      const hasData = allValues.some(v => v > 0);
+      if (!hasData) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const maxVal = maxOverride || Math.max(1, ...allValues);
+      const width = 380, height = 210, padLeft = 28, padBottom = 34, padTop = series.length > 1 ? 26 : 12;
+      const chartW = width - padLeft - 10, chartH = height - padBottom - padTop;
+      const groupW = chartW / categories.length;
+      const barW = Math.min(30, (groupW - 14) / series.length);
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg'); svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+      [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+        const y = padTop + chartH - f * chartH;
+        const line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', padLeft); line.setAttribute('x2', width - 6); line.setAttribute('y1', y); line.setAttribute('y2', y);
+        line.setAttribute('stroke', '#EDE7D8'); line.setAttribute('stroke-width', 1); svg.appendChild(line);
+        const txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', 2); txt.setAttribute('y', y + 3); txt.setAttribute('font-size', '9'); txt.setAttribute('fill', '#5B6472');
+        txt.textContent = +(f * maxVal).toFixed(1); svg.appendChild(txt);
+      });
+      if (series.length > 1) {
+        series.forEach((s, si) => {
+          const lx = padLeft + si * 110;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', lx); rect.setAttribute('y', 4); rect.setAttribute('width', 10); rect.setAttribute('height', 10);
+          rect.setAttribute('fill', s.color); svg.appendChild(rect);
+          const txt = document.createElementNS(svgNS, 'text');
+          txt.setAttribute('x', lx + 14); txt.setAttribute('y', 13); txt.setAttribute('font-size', '10'); txt.setAttribute('fill', '#1D2430');
+          txt.textContent = s.name; svg.appendChild(txt);
+        });
+      }
+      categories.forEach((cat, ci) => {
+        const groupX = padLeft + ci * groupW;
+        series.forEach((s, si) => {
+          const val = s.data[ci] || 0, barH = (val / maxVal) * chartH;
+          const x = groupX + (groupW - series.length * barW) / 2 + si * barW, y = padTop + chartH - barH;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', x); rect.setAttribute('y', y);
+          rect.setAttribute('width', Math.max(2, barW - 3)); rect.setAttribute('height', Math.max(0, barH));
+          rect.setAttribute('fill', s.color); rect.setAttribute('rx', 2); svg.appendChild(rect);
+          if (val > 0) {
+            const vt = document.createElementNS(svgNS, 'text');
+            vt.setAttribute('x', x + (barW - 3) / 2); vt.setAttribute('y', y - 4);
+            vt.setAttribute('font-size', '9'); vt.setAttribute('fill', '#1D2430'); vt.setAttribute('text-anchor', 'middle');
+            vt.textContent = val; svg.appendChild(vt);
+          }
+        });
+        const lt = document.createElementNS(svgNS, 'text');
+        lt.setAttribute('x', groupX + groupW / 2); lt.setAttribute('y', height - 10);
+        lt.setAttribute('font-size', '10'); lt.setAttribute('fill', '#5B6472'); lt.setAttribute('text-anchor', 'middle');
+        lt.textContent = cat; svg.appendChild(lt);
+      });
+      container.appendChild(svg);
+    }
+
+    const PALETTE = ['#1F7A6C', '#C68A2E', '#D65B4A', '#2A5C8A', '#14213D', '#7A5C9E', '#5B8E3E', '#B8658A', '#3E8FA3', '#8A6B4F'];
+
+    function computeStats() {
+      const H = DASH.history, MS = DASH.moduleStats;
+      let totalC = 0, totalW = 0, totalU = 0;
+      Object.values(MS).forEach(m => { totalC += m.correct || 0; totalW += m.wrong || 0; totalU += m.unknown || 0; });
+      const totalAns = totalC + totalW + totalU;
+      return {
+        n: H.length,
+        avgScore: H.length ? H.reduce((s, h) => s + h.score, 0) / H.length : null,
+        best: H.length ? Math.max(...H.map(h => h.score)) : null,
+        totalC, totalW, totalU, totalAns,
+        acc: totalAns > 0 ? Math.round((totalC / totalAns) * 100) : null
+      };
+    }
+    function modEff(id) {
+      const m = DASH.moduleStats[id], tot = (m.correct || 0) + (m.wrong || 0) + (m.unknown || 0);
+      return { tot, pct: tot > 0 ? Math.round((m.correct / tot) * 100) : 0 };
+    }
+
+    function drawCharts(prefix) {
+      const H = DASH.history, MS = DASH.moduleStats, S = computeStats();
+      renderBarChart(prefix + 'ScoreBar', H.map((_, i) => 'S' + (i + 1)), [{ name: 'Puntaje', color: '#1F7A6C', data: H.map(h => h.score) }], 10);
+      renderBarChart(prefix + 'ModuleBar', MODULOS.map(m => 'M' + m.id), [{ name: 'Efectividad %', color: '#C68A2E', data: MODULOS.map(m => modEff(m.id).pct) }], 100);
+      renderPieChart(prefix + 'AnswerPie', [
+        { label: 'Correctas', value: S.totalC, color: '#1F7A6C' },
+        { label: 'Incorrectas', value: S.totalW, color: '#D65B4A' },
+        { label: 'No tengo idea', value: S.totalU, color: '#C68A2E' }
+      ]);
+      renderPieChart(prefix + 'ErrPie', MODULOS.map((m, i) => ({
+        label: m.corto, value: (MS[m.id].wrong || 0) + (MS[m.id].unknown || 0), color: PALETTE[i]
+      })).filter(s => s.value > 0));
+    }
+
+    function analysisTexts() {
+      const H = DASH.history;
+      let last, mods;
+      if (!H.length) {
+        last = 'Aún no has realizado ningún sondeo.';
+      } else {
+        const l = H[H.length - 1], pct = Math.round((l.score / l.total) * 100);
+        last = 'Tu último sondeo (' + fmtDateTime(l.ts) + ') obtuvo ' + l.score + '/' + l.total + ' puntos (' + pct + '%). ' +
+          (l.weakMods.length ? 'Módulos a reforzar: ' + l.weakMods.map(id => MOD[id].corto).join(' · ') + '.' : 'No se detectaron módulos por reforzar: excelente base.');
+      }
+      const withData = MODULOS.filter(m => modEff(m.id).tot > 0);
+      if (!withData.length) {
+        mods = 'Aún no hay datos suficientes por módulo.';
+      } else {
+        const sorted = withData.slice().sort((a, b) => modEff(b.id).pct - modEff(a.id).pct);
+        const best = sorted[0], worst = sorted[sorted.length - 1];
+        mods = best.id === worst.id
+          ? 'Hasta ahora solo hay datos del módulo “' + best.corto + '” (' + modEff(best.id).pct + '% de efectividad).'
+          : 'Tu módulo más fuerte hasta ahora es “' + best.corto + '” (' + modEff(best.id).pct + '%) y el que más necesita refuerzo es “' + worst.corto + '” (' + modEff(worst.id).pct + '%).';
+      }
+      return { last, mods };
+    }
+
+    function renderDashboard() {
+      const S = computeStats();
+      $('dashStats').innerHTML =
+        '<div class="stat-card"><div class="stat-value">' + S.n + '</div><div class="stat-label">Sondeos realizados</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + (S.avgScore !== null ? S.avgScore.toFixed(1) + '/10' : '-') + '</div><div class="stat-label">Puntaje promedio</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + (S.best !== null ? S.best + '/10' : '-') + '</div><div class="stat-label">Mejor puntaje</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + (S.acc !== null ? S.acc + '%' : '-') + '</div><div class="stat-label">Precisión global</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + S.totalU + '</div><div class="stat-label">“No tengo idea” marcadas</div></div>';
+      drawCharts('chart');
+      const A = analysisTexts();
+      $('analysisLast').textContent = A.last;
+      $('analysisModules').textContent = A.mods;
+    }
+
+    // ---------- Reporte imprimible ----------
+    function fmtDateTime(ts) {
+      const d = new Date(ts);
+      return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit' });
+    }
+    function badgeFor(key) {
+      const map = { high: ['BASE SÓLIDA', 'badge-high'], mid: ['BASE INTERMEDIA', 'badge-mid'], low: ['PUNTO DE PARTIDA', 'badge-low'] };
+      return map[key] || ['-', 'badge-mid'];
+    }
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    function populatePrintReport() {
+      const reg = saveRegistro();
+      $('repNombre').textContent = reg.nombre || '________________________';
+      $('repDocumento').textContent = reg.documento || '____________';
+      $('repRegional').textContent = reg.regional || '____________';
+      $('repCentro').textContent = reg.centro || '____________';
+      const now = new Date();
+      $('repFecha').textContent = now.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' }) + ' a las ' + now.toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit' });
+
+      const S = computeStats(), H = DASH.history;
+      $('repStats').innerHTML =
+        '<div class="report-stat-card"><div class="report-stat-value">' + S.n + '</div><div class="report-stat-label">Sondeos</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + (S.avgScore !== null ? S.avgScore.toFixed(1) + '/10' : '-') + '</div><div class="report-stat-label">Puntaje promedio</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + (S.best !== null ? S.best + '/10' : '-') + '</div><div class="report-stat-label">Mejor puntaje</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + (S.acc !== null ? S.acc + '%' : '-') + '</div><div class="report-stat-label">Precisión global</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + S.totalU + '</div><div class="report-stat-label">No tengo idea</div></div>';
+
+      drawCharts('repChart');
+      const A = analysisTexts();
+      $('repAnalysisLast').textContent = ' ' + A.last;
+      $('repAnalysisModules').textContent = ' ' + A.mods;
+
+      $('repModuleTableBody').innerHTML = MODULOS.map(m => {
+        const s = DASH.moduleStats[m.id], e = modEff(m.id);
+        return '<tr><td>M' + m.id + ' · ' + esc(m.nombre) + '</td><td>' + s.correct + '</td><td>' + s.wrong + '</td><td>' + s.unknown + '</td><td>' + e.tot + '</td><td>' + e.pct + '%</td></tr>';
+      }).join('');
+
+      $('repHistoryTableBody').innerHTML = H.map((h, i) => {
+        const pct = Math.round((h.score / h.total) * 100), b = badgeFor(h.verdict);
+        return '<tr><td>' + (i + 1) + '</td><td>' + fmtDateTime(h.ts) + '</td><td>' + esc(h.nombre || '—') + '</td><td>' + h.score + ' / ' + h.total + '</td><td>' + pct + '%</td><td><span class="report-badge ' + b[1] + '">' + b[0] + '</span></td><td>' + (h.weakMods.length ? h.weakMods.map(id => esc(MOD[id].corto)).join(', ') : '—') + '</td></tr>';
+      }).join('') || '<tr><td colspan="7" style="text-align:center;color:#888;">Sin registros aún</td></tr>';
+
+      const last = H.length ? H[H.length - 1] : null;
+      $('repDetailTableBody').innerHTML = last ? last.detail.map((d, i) =>
+        '<tr><td>' + (i + 1) + '</td><td>' + esc(MOD[d.cat].corto) + '</td><td>' + esc(d.enunciado) + '</td><td>' + esc(d.user + ' — ' + d.userText) + '</td><td>' + esc(d.correcta + ' — ' + d.correctaText) + '</td><td><span class="report-badge ' + (d.ok ? 'badge-high' : 'badge-low') + '">' + (d.ok ? 'Cumple' : 'Reforzar') + '</span></td></tr>'
+      ).join('') : '<tr><td colspan="6" style="text-align:center;color:#888;">Sin registros aún</td></tr>';
+    }
+
+    function printReport() {
+      populatePrintReport();
+      document.body.classList.add('printing-report');
+      window.print();
+    }
+    $('printReportBtn').addEventListener('click', printReport);
+    window.addEventListener('afterprint', () => document.body.classList.remove('printing-report'));
+
+    $('resetDashBtn').addEventListener('click', () => {
+      if (!confirm('¿Borrar todo el historial del dashboard en este navegador? Esta acción no se puede deshacer.')) return;
+      DASH = emptyDash();
+      saveDash(); renderDashboard();
+    });
+  </script>
+</body>
+
+</html>

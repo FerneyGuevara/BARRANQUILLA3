@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador Aleatorio de Equipos de Trabajo</title>
+  <style>
+    :root {
+      --navy: #14213D;
+      --navy-2: #1C2D52;
+      --parchment: #F6F1E7;
+      --paper: #FFFFFF;
+      --ink: #1D2430;
+      --ink-soft: #5B6472;
+      --teal: #1F7A6C;
+      --teal-dark: #155A50;
+      --coral: #D65B4A;
+      --coral-dark: #B14536;
+      --gold: #C68A2E;
+      --gold-dark: #9C6D20;
+      --blue: #2A5C8A;
+      --blue-dark: #1E4463;
+      --border: #E2D9C4;
+      --border-cool: #D7DCE6;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    button { font-family: inherit; }
+    h1, h2, h3, h4 { margin: 0; color: var(--navy); font-weight: 800; letter-spacing: -0.01em; }
+    p { margin: 0 0 10px; }
+
+    .tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: .72rem;
+      letter-spacing: .04em;
+      color: var(--ink-soft);
+    }
+
+    /* ---------- Barra superior compacta ---------- */
+    .topbar {
+      background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+      color: #F2F0E8;
+      padding: 16px 24px;
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .home-tab {
+      margin-left: auto;
+      padding: 9px 16px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .home-tab:hover,
+    .home-tab:focus-visible {
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .topbar img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, .35));
+    }
+
+    .topbar .tag { color: #9FB3D6; }
+    .topbar h1 { color: #fff; font-size: clamp(1.2rem, 2.6vw, 1.7rem); line-height: 1.15; }
+
+    /* ---------- Mesa de trabajo ---------- */
+    .workbench {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 70px;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .workbench { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .08);
+      position: sticky;
+      top: 16px;
+    }
+
+    @media (max-width: 900px) { .panel { position: static; } }
+
+    .step { margin-bottom: 22px; }
+
+    .step-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .step-head h2 { font-size: 1rem; }
+
+    textarea, input[type="text"], input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .92rem;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    textarea { height: 180px; resize: vertical; }
+
+    textarea:focus, input:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(20, 33, 61, .08);
+    }
+
+    .counter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      align-items: center;
+      font-size: .8rem;
+      color: var(--ink-soft);
+    }
+
+    .pill {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: var(--teal-dark);
+      font-weight: 700;
+      font-size: .8rem;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    /* Selector segmentado */
+    .segmented {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+      margin-bottom: 12px;
+    }
+
+    .segmented button {
+      border: none;
+      background: none;
+      padding: 9px 8px;
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      cursor: pointer;
+    }
+
+    .segmented button.active {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stepper button {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border-cool);
+      background: #fff;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      cursor: pointer;
+    }
+
+    .stepper button:hover { background: var(--parchment); }
+    .stepper input { text-align: center; font-weight: 800; font-size: 1.05rem; }
+
+    .preview {
+      margin-top: 10px;
+      font-size: .84rem;
+      color: var(--ink-soft);
+      min-height: 1.3em;
+    }
+
+    .toggle-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+      font-size: .88rem;
+      cursor: pointer;
+    }
+
+    .toggle-row input { accent-color: var(--teal); width: 18px; height: 18px; }
+
+    .field-label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 12px 0 5px;
+    }
+
+    .btn-main {
+      width: 100%;
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(31, 122, 108, .28);
+      transition: background .2s ease, transform .1s ease;
+    }
+
+    .btn-main:hover { background: var(--teal-dark); }
+    .btn-main:active { transform: scale(.99); }
+
+    .msg {
+      margin-top: 10px;
+      font-size: .86rem;
+      font-weight: 700;
+      color: var(--coral-dark);
+      min-height: 1.2em;
+    }
+
+    .msg.info { color: var(--teal-dark); }
+
+    .recent { border-top: 1px dashed var(--border); padding-top: 16px; }
+    .recent h3 { font-size: .9rem; margin-bottom: 8px; }
+
+    .recent-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: .8rem;
+      cursor: pointer;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .recent-item:hover { border-color: var(--navy); }
+    .recent-item span:last-child { color: var(--ink-soft); white-space: nowrap; }
+
+    /* ---------- Tablero de resultados ---------- */
+    .board-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .board-head h2 { font-size: 1.5rem; margin: 2px 0; }
+    .board-meta { font-size: .86rem; color: var(--ink-soft); margin: 0; }
+
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .tool-btn {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: .84rem;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .tool-btn:hover { background: #FBFAF6; border-color: var(--navy); }
+
+    .tool-btn.dark { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .tool-btn.dark:hover { background: var(--navy-2); }
+
+    .empty {
+      background: var(--paper);
+      border: 2px dashed var(--border-cool);
+      border-radius: 14px;
+      padding: 60px 24px;
+      text-align: center;
+      color: var(--ink-soft);
+    }
+
+    .empty .big { font-size: 2.6rem; margin-bottom: 6px; }
+    .empty h3 { margin-bottom: 6px; }
+
+    .teams {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .team-card {
+      --c: var(--teal);
+      --c-soft: rgba(31, 122, 108, .12);
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-top: 6px solid var(--c);
+      border-radius: 12px;
+      padding: 16px 18px 14px;
+      box-shadow: 0 4px 14px rgba(20, 33, 61, .06);
+      animation: pop .45s ease both;
+    }
+
+    .team-card.t1 { --c: var(--teal); --c-soft: rgba(31, 122, 108, .12); }
+    .team-card.t2 { --c: var(--gold); --c-soft: rgba(198, 138, 46, .14); }
+    .team-card.t3 { --c: var(--coral); --c-soft: rgba(214, 91, 74, .14); }
+    .team-card.t4 { --c: var(--blue); --c-soft: rgba(42, 92, 138, .14); }
+
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(12px) scale(.97); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .team-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .team-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--c);
+      color: #fff;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .team-top h3 { font-size: 1.02rem; flex: 1; }
+
+    .team-count {
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--c);
+      background: var(--c-soft);
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .team-members { list-style: none; margin: 0; padding: 0; }
+
+    .team-members li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-top: 1px dashed var(--border);
+      font-size: .92rem;
+    }
+
+    .team-members li:first-child { border-top: none; }
+
+    .member-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c);
+      flex: 0 0 auto;
+    }
+
+    .leader-tag {
+      margin-left: auto;
+      font-size: .68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--gold-dark);
+      background: rgba(198, 138, 46, .16);
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .team-foot { margin-top: 8px; text-align: right; }
+
+    .recent-hint { font-size: .74rem; color: var(--ink-soft); margin: 0 0 8px; }
+
+    /* ---------- Modo proyección ---------- */
+    body.presenting .topbar,
+    body.presenting .panel { display: none; }
+
+    body.presenting .workbench {
+      grid-template-columns: 1fr;
+      max-width: none;
+      padding: 20px 28px 40px;
+    }
+
+    body.presenting .teams { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+    body.presenting .team-members li { font-size: 1.3rem; padding: 10px 0; }
+    body.presenting .team-top h3 { font-size: 1.4rem; }
+    body.presenting .board-head h2 { font-size: 2.2rem; }
+
+    /* ---------- Reporte imprimible ---------- */
+    #printReport { display: none; }
+
+    @media print {
+      body.printing > .topbar,
+      body.printing > .workbench { display: none !important; }
+
+      body.printing { background: #fff !important; }
+
+      body.printing #printReport {
+        display: block !important;
+        padding: 0;
+        color: #111827;
+        font-size: 10pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    .r-head { border-bottom: 2px solid #14213D; padding-bottom: 10px; margin-bottom: 14px; }
+    .r-org { font-size: 8pt; font-weight: 800; letter-spacing: .5px; color: #14213D; text-transform: uppercase; }
+    .r-center { font-size: 13pt; font-weight: 900; color: #14213D; }
+
+    .r-title {
+      background: #F6F1E7;
+      border: 1.5px solid #C68A2E;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+    }
+
+    .r-title strong { display: block; font-size: 11pt; color: #14213D; }
+    .r-title span { font-size: 8.5pt; color: #444; }
+
+    .r-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .r-team { border: 1px solid #D7DCE6; border-radius: 6px; padding: 8px 10px; break-inside: avoid; page-break-inside: avoid; }
+    .r-team h4 { font-size: 10pt; color: #14213D; border-bottom: 1.5px solid #1F7A6C; padding-bottom: 3px; margin-bottom: 5px; }
+    .r-team ol { margin: 0; padding-left: 18px; font-size: 9.5pt; }
+    .r-team li { margin-bottom: 2px; }
+    .r-leader { font-size: 7pt; font-weight: 800; color: #9C6D20; text-transform: uppercase; margin-left: 6px; }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <img src="imagen.png" alt="Logo SENA" onerror="this.style.display='none'">
+      <div>
+        <span class="tag">SENA · CENTRO DE GESTIÓN ADMINISTRATIVA</span>
+        <h1>Generador aleatorio de equipos de trabajo</h1>
+      </div>
+      <a class="home-tab" href="index.html">Inicio</a>
+    </div>
+  </header>
+
+  <div class="workbench">
+
+    <!-- PANEL DE CONTROL -->
+    <aside class="panel">
+      <div class="step">
+        <div class="step-head"><span class="step-num">1</span>
+          <h2>Participantes</h2>
+        </div>
+        <textarea id="listaNombres"
+          placeholder="Un nombre por línea&#10;Juan Pérez&#10;María Rodríguez&#10;Carlos Mendoza&#10;Ana Gómez..."></textarea>
+        <div class="counter">
+          <span class="pill" id="countPill">0 personas</span>
+          <span id="dupNote"></span>
+          <button type="button" class="link-btn" id="clearBtn">Limpiar lista</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-num">2</span>
+          <h2>Cómo dividirlos</h2>
+        </div>
+        <div class="segmented" id="modeSeg">
+          <button type="button" data-mode="equipos" class="active" aria-pressed="true">Por n.º de equipos</button>
+          <button type="button" data-mode="tamano" aria-pressed="false">Por integrantes</button>
+        </div>
+        <div class="stepper">
+          <button type="button" id="minusBtn" aria-label="Disminuir">−</button>
+          <input type="number" id="cantidad" min="1" value="2">
+          <button type="button" id="plusBtn" aria-label="Aumentar">+</button>
+        </div>
+        <div class="preview" id="preview"></div>
+
+        <label class="toggle-row"><input type="checkbox" id="chkLider"> Asignar un líder al azar en cada equipo</label>
+
+        <label class="field-label" for="actividad">Nombre de la actividad (opcional)</label>
+        <input type="text" id="actividad" placeholder="Actividad Kanban - Grupo Barranquilla">
+      </div>
+
+      <div class="step" style="margin-bottom:0;">
+        <div class="step-head"><span class="step-num">3</span>
+          <h2>Sortear</h2>
+        </div>
+        <button type="button" class="btn-main" id="sortBtn">🎲 Organizar equipos aleatorios</button>
+        <div class="msg" id="msg" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="recent" id="recentBox" style="display:none;margin-top:18px;">
+        <h3>Sorteos recientes</h3>
+        <p class="recent-hint">Se guardan solo en este navegador. Si usas un equipo compartido, bórralos al terminar.</p>
+        <div id="recentList"></div>
+        <button type="button" class="link-btn" id="clearHistBtn">Borrar historial</button>
+      </div>
+    </aside>
+
+    <!-- TABLERO -->
+    <main>
+      <div class="board-head">
+        <div>
+          <span class="tag">RESULTADO</span>
+          <h2 id="boardTitle">Distribución de equipos</h2>
+          <p class="board-meta" id="boardMeta"></p>
+        </div>
+        <div class="toolbar" id="toolbar" style="display:none;">
+          <button type="button" class="tool-btn" id="reshuffleBtn">🔄 Volver a sortear</button>
+          <button type="button" class="tool-btn" id="copyAllBtn">📋 Copiar todo</button>
+          <button type="button" class="tool-btn" id="csvBtn">⬇ CSV</button>
+          <button type="button" class="tool-btn" id="presentBtn">🖥️ Proyectar</button>
+          <button type="button" class="tool-btn dark" id="printBtn">🖨️ Imprimir / PDF</button>
+        </div>
+      </div>
+
+      <div class="empty" id="emptyState">
+        <div class="big">🎲</div>
+        <h3>Aún no hay equipos</h3>
+        <p>Pega el listado de personas, elige cómo dividirlas y presiona <strong>Organizar equipos</strong>.</p>
+      </div>
+      <div class="teams" id="teams"></div>
+    </main>
+  </div>
+
+  <!-- Reporte imprimible -->
+  <div id="printReport">
+    <div class="r-head">
+      <div class="r-org">Servicio Nacional de Aprendizaje SENA • Regional Distrito Capital</div>
+      <div class="r-center">Centro de Gestión Administrativa</div>
+    </div>
+    <div class="r-title">
+      <strong>CONFORMACIÓN DE EQUIPOS DE TRABAJO</strong>
+      <span id="rActividad"></span>
+      <span id="rMeta" style="display:block;"></span>
+    </div>
+    <div class="r-grid" id="rGrid"></div>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    let mode = 'equipos';
+    let current = null; // { ts, actividad, names:[], leaders:bool, teams:[{members, leader}] }
+    const HIST_KEY = 'equipos_historial_v1';
+
+    // ---------- Utilidades ----------
+    function parseNames() {
+      const raw = $('listaNombres').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const seen = new Set(), names = [];
+      raw.forEach(n => { const k = n.toLowerCase(); if (!seen.has(k)) { seen.add(k); names.push(n); } });
+      return { names, dups: raw.length - names.length };
+    }
+
+    function plan(n, value) {
+      // devuelve número de equipos según el modo
+      if (n === 0 || !(value >= 1)) return 0;
+      return mode === 'equipos' ? value : Math.ceil(n / value);
+    }
+
+    function updatePreview() {
+      const { names, dups } = parseNames();
+      const n = names.length, v = parseInt($('cantidad').value, 10);
+      $('countPill').textContent = n + (n === 1 ? ' persona' : ' personas');
+      $('dupNote').textContent = dups ? '(' + dups + ' repetido' + (dups > 1 ? 's' : '') + ' ignorado' + (dups > 1 ? 's' : '') + ')' : '';
+      const k = plan(n, v), pv = $('preview');
+      if (!n || !k) { pv.textContent = ''; return; }
+      if (k > n) { pv.textContent = 'Hay menos personas que equipos solicitados.'; return; }
+      const min = Math.floor(n / k), max = Math.ceil(n / k);
+      pv.textContent = 'Se formarán ' + k + ' equipo' + (k > 1 ? 's' : '') + ' de ' + (min === max ? min : min + ' a ' + max) + ' integrantes.';
+    }
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function fmtDate(ts) {
+      const d = new Date(ts);
+      return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' }) + ', ' +
+        d.toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit' });
+    }
+
+    // ---------- Sorteo ----------
+    function sortear(namesOverride) {
+      const msg = $('msg');
+      msg.className = 'msg'; msg.textContent = '';
+      const { names } = namesOverride ? { names: namesOverride } : parseNames();
+      const v = parseInt($('cantidad').value, 10);
+
+      if (names.length === 0) { msg.textContent = 'Ingresa al menos el nombre de una persona.'; return; }
+      if (isNaN(v) || v < 1) { msg.textContent = 'Ingresa un número válido (mínimo 1).'; return; }
+      const k = plan(names.length, v);
+      if (k > names.length) {
+        msg.textContent = 'No puedes crear ' + k + ' equipos con solo ' + names.length + ' persona' + (names.length > 1 ? 's' : '') + '.';
+        return;
+      }
+
+      const mixed = shuffle(names);
+      const teams = Array.from({ length: k }, () => ({ members: [], leader: null }));
+      mixed.forEach((p, i) => teams[i % k].members.push(p));
+      const leaders = $('chkLider').checked;
+      if (leaders) teams.forEach(t => { t.leader = Math.floor(Math.random() * t.members.length); });
+
+      current = { ts: Date.now(), actividad: $('actividad').value.trim(), names, leaders, teams };
+      render();
+      pushHistory();
+      msg.className = 'msg info';
+      msg.textContent = '✓ Sorteo realizado.';
+    }
+
+    function render() {
+      const box = $('teams');
+      box.innerHTML = '';
+      $('emptyState').style.display = 'none';
+      $('toolbar').style.display = 'flex';
+      const total = current.names.length;
+      $('boardTitle').textContent = current.actividad || 'Distribución de equipos';
+      $('boardMeta').textContent = total + ' personas · ' + current.teams.length + ' equipos · ' + fmtDate(current.ts);
+
+      current.teams.forEach((t, i) => {
+        const card = document.createElement('div');
+        card.className = 'team-card t' + ((i % 4) + 1);
+        card.style.animationDelay = (i * 70) + 'ms';
+
+        const top = document.createElement('div'); top.className = 'team-top';
+        const badge = document.createElement('div'); badge.className = 'team-badge'; badge.textContent = i + 1;
+        const h = document.createElement('h3'); h.textContent = 'Equipo ' + (i + 1);
+        const cnt = document.createElement('span'); cnt.className = 'team-count'; cnt.textContent = t.members.length + ' int.';
+        top.append(badge, h, cnt);
+
+        const ul = document.createElement('ul'); ul.className = 'team-members';
+        t.members.forEach((m, mi) => {
+          const li = document.createElement('li');
+          const dot = document.createElement('span'); dot.className = 'member-dot';
+          const name = document.createElement('span'); name.textContent = m;
+          li.append(dot, name);
+          if (t.leader === mi) {
+            const lt = document.createElement('span'); lt.className = 'leader-tag'; lt.textContent = '★ Líder';
+            li.appendChild(lt);
+          }
+          ul.appendChild(li);
+        });
+
+        const foot = document.createElement('div'); foot.className = 'team-foot';
+        const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'link-btn'; cp.textContent = 'Copiar equipo';
+        cp.addEventListener('click', () => copyText(teamText(t, i), cp));
+        foot.appendChild(cp);
+
+        card.append(top, ul, foot);
+        box.appendChild(card);
+      });
+    }
+
+    // ---------- Copiar / CSV / Imprimir ----------
+    function teamText(t, i) {
+      return 'Equipo ' + (i + 1) + '\n' + t.members.map((m, mi) => (mi + 1) + '. ' + m + (t.leader === mi ? ' (Líder)' : '')).join('\n');
+    }
+
+    function copyText(text, btn) {
+      const done = () => { if (btn) { const old = btn.textContent; btn.textContent = '✓ Copiado'; setTimeout(() => btn.textContent = old, 1400); } };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else fallbackCopy(text, done);
+    }
+    function fallbackCopy(text, done) {
+      const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand('copy'); done(); } catch (e) { } document.body.removeChild(ta);
+    }
+
+    $('copyAllBtn').addEventListener('click', e => {
+      if (!current) return;
+      const head = (current.actividad ? current.actividad + '\n' : '') + 'Conformación de equipos — ' + fmtDate(current.ts) + '\n\n';
+      copyText(head + current.teams.map(teamText).join('\n\n'), e.currentTarget);
+    });
+
+    $('csvBtn').addEventListener('click', () => {
+      if (!current) return;
+      const q = s => { let t = String(s); if (/^[=+\-@]/.test(t)) t = "'" + t; return '"' + t.replace(/"/g, '""') + '"'; };
+      const rows = [['Equipo', 'Integrante', 'Rol'].map(q).join(',')];
+      current.teams.forEach((t, i) => t.members.forEach((m, mi) =>
+        rows.push([q('Equipo ' + (i + 1)), q(m), q(t.leader === mi ? 'Líder' : 'Integrante')].join(','))));
+      const blob = new Blob(['\ufeff' + rows.join('\n')], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = 'equipos_de_trabajo.csv';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    });
+
+    $('printBtn').addEventListener('click', () => {
+      if (!current) return;
+      $('rActividad').textContent = current.actividad ? current.actividad : '';
+      $('rMeta').textContent = current.names.length + ' personas · ' + current.teams.length + ' equipos · Generado el ' + fmtDate(current.ts);
+      const grid = $('rGrid'); grid.innerHTML = '';
+      current.teams.forEach((t, i) => {
+        const d = document.createElement('div'); d.className = 'r-team';
+        const h = document.createElement('h4'); h.textContent = 'Equipo ' + (i + 1) + ' (' + t.members.length + ')';
+        const ol = document.createElement('ol');
+        t.members.forEach((m, mi) => {
+          const li = document.createElement('li'); li.textContent = m;
+          if (t.leader === mi) { const s = document.createElement('span'); s.className = 'r-leader'; s.textContent = '★ Líder'; li.appendChild(s); }
+          ol.appendChild(li);
+        });
+        d.append(h, ol); grid.appendChild(d);
+      });
+      document.body.classList.add('printing');
+      window.print();
+    });
+    window.addEventListener('afterprint', () => document.body.classList.remove('printing'));
+
+    // ---------- Historial reciente ----------
+    function loadHist() { try { return JSON.parse(localStorage.getItem(HIST_KEY)) || []; } catch (e) { return []; } }
+    function pushHistory() {
+      const h = loadHist();
+      h.unshift(current);
+      try { localStorage.setItem(HIST_KEY, JSON.stringify(h.slice(0, 5))); } catch (e) { }
+      renderHist();
+    }
+    function renderHist() {
+      const h = loadHist(), list = $('recentList');
+      $('recentBox').style.display = h.length ? 'block' : 'none';
+      list.innerHTML = '';
+      h.forEach(item => {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'recent-item';
+        const a = document.createElement('span'); a.textContent = (item.actividad || 'Sorteo') + ' · ' + item.teams.length + ' eq.';
+        const c = document.createElement('span'); c.textContent = new Date(item.ts).toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit' });
+        b.append(a, c);
+        b.addEventListener('click', () => { current = item; render(); });
+        list.appendChild(b);
+      });
+    }
+
+    // ---------- Eventos ----------
+    $('sortBtn').addEventListener('click', () => sortear());
+    $('reshuffleBtn').addEventListener('click', () => { if (current) sortear(current.names); });
+    $('listaNombres').addEventListener('input', updatePreview);
+    $('cantidad').addEventListener('input', updatePreview);
+    $('clearBtn').addEventListener('click', () => { $('listaNombres').value = ''; updatePreview(); $('listaNombres').focus(); });
+    $('plusBtn').addEventListener('click', () => { $('cantidad').value = (parseInt($('cantidad').value, 10) || 1) + 1; updatePreview(); });
+    $('minusBtn').addEventListener('click', () => { $('cantidad').value = Math.max(1, (parseInt($('cantidad').value, 10) || 2) - 1); updatePreview(); });
+    document.querySelectorAll('#modeSeg button').forEach(b => b.addEventListener('click', () => {
+      mode = b.dataset.mode;
+      document.querySelectorAll('#modeSeg button').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b); });
+      $('cantidad').value = mode === 'equipos' ? 2 : 4;
+      updatePreview();
+    }));
+
+    // ---------- Modo proyección (pantalla completa para el salón) ----------
+    function setPresenting(on) {
+      document.body.classList.toggle('presenting', on);
+      $('presentBtn').textContent = on ? '✖ Salir de proyección' : '🖥️ Proyectar';
+    }
+    $('presentBtn').addEventListener('click', () => {
+      const on = !document.body.classList.contains('presenting');
+      setPresenting(on);
+      if (on) { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => { }); }
+      else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen();
+    });
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement && document.body.classList.contains('presenting')) setPresenting(false);
+    });
+    $('clearHistBtn').addEventListener('click', () => {
+      try { localStorage.removeItem(HIST_KEY); } catch (e) { }
+      renderHist();
+    });
+
+    renderHist();
+    updatePreview();
+  </script>
+</body>
+
+</html>
