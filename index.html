@@ -439,6 +439,12 @@
             box-shadow: 0 10px 25px rgba(27, 52, 181, 0.38) !important;
         }
 
+        .download-button.inicio-btn,
+        .download-button.inicio-btn:hover {
+            background: #1E5402 !important;
+            box-shadow: 0 6px 20px rgba(30, 84, 2, 0.22) !important;
+        }
+
         .download-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(0, 122, 85, 0.38);
@@ -671,6 +677,36 @@
             margin-bottom: 0;
         }
 
+        .session-box-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .session-box-row .session-box {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .session-box-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .session-box-actions .motion-button {
+            margin-top: 0 !important;
+        }
+
+        @media (max-width: 620px) {
+            .session-box-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 920px) {
             .sesiones-layout {
                 grid-template-columns: 1fr;
@@ -749,7 +785,7 @@
                                     <a href="#sesion-4">Sesión 4</a>
                                     <a href="#sesion-5">Sesión No 5</a>
                                     <a href="#sesion-6">Sesión No 6</a>
-                                    <a href="#sesion-7">Sección No 7: Encuestas</a>
+                                    <a href="#sesion-7">Experiencia Tecnoglass y GFT</a>
                                 </div>
                             </div>
 
@@ -801,7 +837,7 @@
                         <a class="ruta-hotspot" id="ruta-paso-8" href="#sesion-5" data-nav="#sesion-5"
                             style="left:33.8%;top:56.1%;width:22.3%;height:18.5%;" aria-label="Ir a la Sesión No 5: Equipo Teams como LMS" title="Ir a la Sesión No 5: Equipo Teams como LMS"></a>
                         <a class="ruta-hotspot" id="ruta-paso-9" href="#sesion-7" data-nav="#sesion-7"
-                            style="left:63.9%;top:57%;width:30.3%;height:17.3%;" aria-label="Ir a la Sección No 7: Encuestas" title="Ir a la Sección No 7: Encuestas"></a>
+                            style="left:63.9%;top:57%;width:30.3%;height:17.3%;" aria-label="Ir a Experiencia Tecnoglass y GFT" title="Ir a Experiencia Tecnoglass y GFT"></a>
                         <a class="ruta-hotspot" id="ruta-paso-10" href="#sesion-6" data-nav="#sesion-6"
                             style="left:4.5%;top:75.3%;width:31.9%;height:14.3%;" aria-label="Ir a la Sesión No 6: Ejercicios Aplicados" title="Ir a la Sesión No 6: Ejercicios Aplicados"></a>
                     </div>
@@ -985,33 +1021,41 @@
                     style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22); margin-left: 8px;"
                     href="#top">Inicio</a>
             </div>
-            <div class="session-box" id="sesion-7">
-                <p class="session-highlight"><strong>Sección No 7: Encuestas</strong></p>
-                <p>Espacio dedicado a la recopilación de encuestas, retroalimentación y evaluaciones del EDT sobre la
-                    transformación del talento humano.</p>
-                <a class="download-button motion-button"
-                    style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22); margin-top: 14px;"
-                    href="https://drive.google.com/file/d/1V8C4iadXzDy4sKxEZwHPd0ZQzATup6nt/view" target="_blank"
-                    rel="noopener noreferrer">Experiencia JOHAN LLANOS</a>
-                <br>
-                <a class="download-button motion-button"
-                    style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22); margin-top: 8px;"
-                    href="https://forms.cloud.microsoft/r/3SGFjmQiRJ" target="_blank" rel="noopener noreferrer">Visita
-                    Técnica ATLANTIC QI</a>
-                <br>
-                <a class="download-button motion-button"
-                    style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22); margin-top: 8px;"
-                    href="https://forms.cloud.microsoft/r/rXfU2TrN3k" target="_blank"
-                    rel="noopener noreferrer">Experiencia RICHARD HOLGUIN</a>
-                <br>
-                <a class="download-button motion-button"
-                    style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22); margin-top: 8px;"
-                    href="https://forms.cloud.microsoft/r/EMMMJcqHvr" target="_blank"
-                    rel="noopener noreferrer">Visita Técnica TOESHEE</a>
-                <br>
-                <a class="download-button motion-button notion-btn inicio-btn"
-                    style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22); margin-top: 8px;"
-                    href="#top">Inicio</a>
+            <div class="session-box-row">
+                <div class="session-box" id="sesion-7-visitas">
+                    <p class="session-highlight"><strong>Visitas Técnicas</strong></p>
+                    <p>Espacio destinado a la recopilación, consolidación y seguimiento de las encuestas de percepción y evaluación correspondientes a las visitas empresariales efectuadas a las organizaciones Atlantic QI y Toeshee, las cuales se llevaron a cabo como parte del proceso formativo durante el desarrollo de este (EDT).</p>
+                    <div class="session-box-actions">
+                        <a class="download-button motion-button"
+                            style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22);"
+                            href="https://forms.cloud.microsoft/r/3SGFjmQiRJ" target="_blank" rel="noopener noreferrer">Visita
+                            Técnica ATLANTIC QI</a>
+                        <a class="download-button motion-button"
+                            style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22);"
+                            href="https://forms.cloud.microsoft/r/EMMMJcqHvr" target="_blank"
+                            rel="noopener noreferrer">Visita Técnica TOESHEE</a>
+                        <a class="download-button motion-button notion-btn inicio-btn"
+                            style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22);"
+                            href="#top">Inicio</a>
+                    </div>
+                </div>
+                <div class="session-box" id="sesion-7">
+                    <p class="session-highlight"><strong>Experiencia Tecnoglass y GFT</strong></p>
+                    <p>Espacio institucional destinado a la recopilación sistemática, consolidación y análisis de las encuestas de percepción, aportes de retroalimentación y evaluaciones de impacto derivadas del (EDT) enfocado en la transformación estratégica del talento humano.</p>
+                    <div class="session-box-actions">
+                        <a class="download-button motion-button"
+                            style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22);"
+                            href="https://drive.google.com/file/d/1V8C4iadXzDy4sKxEZwHPd0ZQzATup6nt/view" target="_blank"
+                            rel="noopener noreferrer">Experiencia JOHAN LLANOS</a>
+                        <a class="download-button motion-button"
+                            style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22);"
+                            href="https://forms.cloud.microsoft/r/rXfU2TrN3k" target="_blank"
+                            rel="noopener noreferrer">Experiencia RICHARD HOLGUIN</a>
+                        <a class="download-button motion-button notion-btn inicio-btn"
+                            style="background: #1B34B5; box-shadow: 0 6px 20px rgba(27, 52, 181, 0.22);"
+                            href="#top">Inicio</a>
+                    </div>
+                </div>
             </div>
                 </div>
             </div>
@@ -1108,9 +1152,9 @@
                 },
                 {
                     id: 'sesion-7-encuestas-data',
-                    label: 'Sección No 7: Encuestas',
-                    title: 'Sección No 7: Encuestas de Satisfacción y Retroalimentación',
-                    body: 'Espacio dedicado a la recopilación de encuestas, retroalimentación y evaluaciones del EDT sobre la transformación del talento humano.',
+                    label: 'Experiencia Tecnoglass y GFT',
+                    title: 'Experiencia Tecnoglass y GFT',
+                    body: 'Espacio institucional destinado a la recopilación sistemática, consolidación y análisis de las encuestas de percepción, aportes de retroalimentación y evaluaciones de impacto derivadas del (EDT) enfocado en la transformación estratégica del talento humano.',
                     cards: [
                         { type: 'download', label: 'Experiencia JOHAN LLANOS', src: 'https://drive.google.com/file/d/1V8C4iadXzDy4sKxEZwHPd0ZQzATup6nt/view' },
                         { type: 'download', label: 'Visita Técnica ATLANTIC QI', src: 'https://forms.cloud.microsoft/r/3SGFjmQiRJ' },
